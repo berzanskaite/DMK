@@ -1,0 +1,59 @@
+{
+  "items": [
+    {
+      "id": "kep01",
+      "title": "„Velykų Boba“",
+      "description": "Mielinis kepinys Velykoms.",
+      "price": 4.2,
+      "weight": 1,
+      "img": "https://img2.moteris.lt/article/d33e3a74-3b5e-4929-8e04-7c503403d258/cover/5896459.jpeg"
+    },
+    {
+      "id": "kep02",
+      "title": "Cinamoninės bandelės",
+      "description": "Mielinės bandelės su cinamonu ir karameliniu glaistu.",
+      "price": 1.5,
+      "weight": 0.2,
+      "img": "https://cdn.leitesculinaria.com/wp-content/uploads/fly-images/284035/cinnamon-rolls-1200x1200-c.jpg.optimal.jpg"
+    },
+    {
+      "id": "kep03",
+      "title": "Sumuštinių duona",
+      "description": "Mielinė duona kiekvienam rytui",
+      "price": 2.2,
+      "weight": 0.8,
+      "img": "https://holycowvegan.net/wp-content/uploads/2016/09/sourdough-sandwich-bread-6-500x375.jpg"
+    },
+    {
+      "id": "kep04",
+      "title": "Kondensuoto pieno keksas",
+      "description": "Prie arbatos.",
+      "price": 3.2,
+      "weight": 1.2,
+      "img": "https://staticfanpage.akamaized.net/wp-content/uploads/sites/22/2021/06/Condensed-Milk-Cake-9-1200x675.jpg"
+    },
+    {
+      "id": "kep05",
+      "title": "Bandelės su aguonomis",
+      "description": "Šviežiai keptos ir kvepiancios bandelės.",
+      "price": 1.6,
+      "weight": 0.2,
+      "img": "https://blog.justingredients.co.uk/wp-content/uploads/2020/07/shutterstock_1368131741-784x392.jpg"
+    },
+    {
+      "id": "kep06",
+      "title": "Ruginė duona",
+      "description": "Sodraus skonio kasdieninė duona.",
+      "price": 2,
+      "weight": 1.2,
+      "img": "https://www.biggerbolderbaking.com/wp-content/uploads/2020/09/Pumpernickel-bread-WS-THumbnail.jpg"
+    }
+  ],
+  "users": [
+    {
+      "id": "admin1",
+      "email": "admin@dmk.lt",
+      "password": "Admin123"
+    }
+  ]
+}
