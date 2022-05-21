@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -7,6 +7,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  TextField,
 } from '@mui/material';
 import { Item } from '../../store/types';
 
@@ -18,7 +19,7 @@ type ItemCardProps = Item & {
 const AdminItemCard: React.FC<ItemCardProps> = ({
   id, title, description, price, img, weight, updateItem, deleteItem,
 }) => (
-  <Card sx={{ height: 345, width: 320, textAlign: 'center' }}>
+  <Card sx={{ height: 370, width: 320, textAlign: 'center' }}>
     <CardMedia
       component="img"
       height="200"
@@ -32,8 +33,13 @@ const AdminItemCard: React.FC<ItemCardProps> = ({
       <Typography variant="body2" color="text.secondary">
         {description}
       </Typography>
+      <Typography sx={{ color: 'text.secondary', mb: -2 }}>
+        ID:
+        {' '}
+        {id}
+      </Typography>
     </CardContent>
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '0 auto' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '0 20px' }}>
       <CardActions>
         <Typography sx={{ color: 'black' }}>
           {price}

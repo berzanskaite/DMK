@@ -46,7 +46,7 @@ const mainReducer: Reducer<State, Action> = (state = initialState, action) => {
             description: 'Naujas aprasymas',
             price: 12,
             weight: 4,
-            img: '',
+            img: 'https://www.richsusa.com/wp-content/uploads/2021/04/Bread-Guide-Hero-for-Signature-Breads.jpg',
           },
         ],
       };

@@ -39,7 +39,7 @@ const ContactsPage: React.FC = () => {
   });
 
   return (
-    <Container sx={{ my: 5 }}>
+    <Container id="contacts" sx={{ mb: 5, height: '100vh' }}>
       <SectionTitle title="Kontaktai" description="Susisiekite su mumis" />
       <Paper
         component="form"

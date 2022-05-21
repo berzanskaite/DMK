@@ -1,8 +1,7 @@
-import { NavLink } from 'react-router-dom';
 import { styled } from '@mui/material';
 import { Link } from 'react-scroll';
 
-const NavbarLink = styled(NavLink)(({ theme }) => ({
+const NavbarScrollLink = styled(Link)(({ theme }) => ({
   display: 'inline-flex',
   alignItems: 'center',
   color: theme.palette.common.white,
@@ -23,9 +22,11 @@ const NavbarLink = styled(NavLink)(({ theme }) => ({
 
   ':hover': {
     color: theme.palette.manoSpalva.light,
+    cursor: 'pointer',
+    boxShadow: `inset 0px -3px 0px 0px ${theme.palette.manoSpalva.light}`,
     // fontWeight: 900,
   },
 
 }));
 
-export default NavbarLink;
+export default NavbarScrollLink;

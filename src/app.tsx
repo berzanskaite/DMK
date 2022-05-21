@@ -7,6 +7,7 @@ import {
 import { Provider as ReduxProvider } from 'react-redux';
 
 import RegisterPage from 'pages/register-page';
+import Footer from 'components/footer';
 import store from './store';
 import PageLayout from './components/page-layout';
 import HomePage from './pages/home-page';
@@ -35,6 +36,7 @@ const App: React.FC = () => (
             <Route path="/admin" element={<RequireAuth><AdminPage /></RequireAuth>} />
           </Route>
         </Routes>
+        <Footer />
       </ReduxProvider>
     </AuthProvider>
   </BrowserRouter>
