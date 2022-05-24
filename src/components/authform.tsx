@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   Alert,
   Box,
   Button,
-  Container,
   Paper,
 } from '@mui/material';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import CircularProgress from '@mui/material/CircularProgress';
-import AuthContext from '../features/auth/auth-context';
+import { useRootSelector } from '../store';
+import { selectAuthError, selectAuthLoading } from '../store/selectors';
+import { useRootDispatch } from '../store/hooks';
+import { authClearErrorAction } from '../store/action-creators';
 
 type AuthFormProps = {
   btnActive?: boolean,
@@ -20,7 +22,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
   onSubmit,
   children,
 }) => {
-  const { error, clearError, loading } = useContext(AuthContext);
+  const dispatch = useRootDispatch();
+  const loading = useRootSelector(selectAuthLoading);
+  const error = useRootSelector(selectAuthError);
+
+  const clearError = () => {
+    dispatch(authClearErrorAction);
+  };
 
   return (
     <>
@@ -72,7 +80,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
         >
           {loading ? <CircularProgress size="26px" /> : 'Prisijungti'}
         </Button>
-        <Button href="/auth/register" variant="contained" size="small" type="submit">Registruotis</Button>
       </Paper>
     </>
   );

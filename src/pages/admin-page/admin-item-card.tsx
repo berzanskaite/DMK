@@ -9,7 +9,7 @@ import {
   Typography,
   TextField,
 } from '@mui/material';
-import { Item } from '../../store/types';
+import { Item } from '../../types';
 
 type ItemCardProps = Item & {
   updateItem: (itemId: string) => void,

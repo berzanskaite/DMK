@@ -1,17 +1,14 @@
-export type State = {
-  items: Item[],
+import { ThunkDispatch } from 'redux-thunk';
+import { ItemsAction, ItemsState } from './features/items/types';
+import { AuthAction, AuthState } from './features/auth/types';
+import { NavigationAction, NavigationState } from './features/navigation/types';
+
+export type RootState = {
+  items: ItemsState,
+  auth: AuthState,
+  navigation: NavigationState,
 };
 
-export type Action = {
-  type: string,
-  payload: any
-};
+export type AppAction = AuthAction | ItemsAction | NavigationAction;
 
-export type Item = {
-  id: string,
-  title: string,
-  description: string,
-  price: number,
-  weight: number,
-  img: string,
-};
+export type AppDispatch = ThunkDispatch<RootState, undefined, AppAction>;

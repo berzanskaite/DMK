@@ -1,14 +1,16 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import Navbar from './navbar';
+import Footer from './footer';
+import NavbarAuth from './navbar/navbar-auth';
 
 const PageLayoutAuth: React.FC = () => (
   <>
-    <Navbar />
+    <NavbarAuth />
     <Box component="main">
       <Outlet />
     </Box>
+    <Footer />
   </>
 );
 

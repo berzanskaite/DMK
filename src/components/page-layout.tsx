@@ -1,14 +1,16 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import Navbar from './navbar';
+import Footer from './footer';
+import NavbarVisitor from './navbar/navbar-visitor';
 
 const PageLayout: React.FC = () => (
   <>
-    <Navbar />
+    <NavbarVisitor />
     <Box component="main">
       <Outlet />
     </Box>
+    <Footer />
   </>
 );
 
