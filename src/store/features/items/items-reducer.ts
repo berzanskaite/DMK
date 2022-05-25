@@ -38,6 +38,7 @@ const itemsReducer: Reducer<ItemsState, ItemsAction> = (state = initialState, ac
             price: 12,
             weight: 4,
             img: 'https://www.richsusa.com/wp-content/uploads/2021/04/Bread-Guide-Hero-for-Signature-Breads.jpg',
+            composition: 'Nauja sudetis',
           },
         ],
       };

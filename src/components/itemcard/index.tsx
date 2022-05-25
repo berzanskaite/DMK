@@ -1,52 +1,80 @@
-import React from 'react';
 import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box, Button, Paper, Typography,
 } from '@mui/material';
-import Item from '../../types/item';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React from 'react';
+import { Item } from 'types';
 
 type ItemCardProps = Omit<Item, 'id'>;
 
 const ItemCard: React.FC<ItemCardProps> = ({
-  title, description, price, img, weight,
+  title, description, price, img, weight, composition,
 }) => (
-  <Card sx={{ height: 400, width: 345, textAlign: 'center' }}>
-    <CardMedia
-      component="img"
-      height="240"
-      image={img}
-      alt={title}
-    />
-    <CardContent>
-      <Typography gutterBottom variant="h5" component="div">
-        {title}
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        {description}
-      </Typography>
-    </CardContent>
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '0 auto' }}>
-      <CardActions>
-        <Button disableRipple sx={{ color: 'black' }}>
-          {price}
-          {' '}
-          €
-        </Button>
-        <Button disabled sx={{ color: 'text.secondary', textTransform: 'lowercase' }}>
-          (
-          {weight}
-          kg)
-        </Button>
-        <Button size="small">Sudėtis</Button>
-        <Button size="small">Užsakyti</Button>
-      </CardActions>
+  <Paper
+    elevation={0}
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: 384,
+      width: 345,
+      textAlign: 'center',
+      pb: 1,
+    }}
+  >
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box>
+        <Box
+          component="img"
+          src={img}
+          alt={title}
+          sx={{ height: 240, width: 345 }}
+        />
+
+        <Typography gutterBottom variant="h5">
+          {title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ px: 2 }}>
+          {description}
+        </Typography>
+      </Box>
+
+      <Box>
+        <Box sx={{ display: 'flex', margin: '0 auto' }}>
+          <Typography sx={{ color: 'black' }}>
+            {price}
+            {' '}
+            €
+          </Typography>
+          <Typography sx={{ color: 'text.secondary', textTransform: 'lowercase' }}>
+            (
+            {weight}
+            kg)
+          </Typography>
+
+          <Button size="small">Užsakyti</Button>
+        </Box>
+
+      </Box>
+
     </Box>
-  </Card>
+    <Accordion elevation={0}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography>Sudedamosios dalys</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography variant="body2">
+          {composition}
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
+  </Paper>
 );
 
 export default ItemCard;

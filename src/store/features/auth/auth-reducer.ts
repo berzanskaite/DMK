@@ -4,7 +4,7 @@ import { AuthState, AuthAction } from './types';
 
 import { getLocalStorageItem, setLocalStorageItem } from '../../../helpers/local-storage-helpers';
 
-const USER_KEY_IN_LOCAL_STORAGE = 'user';
+const USER_KEY_IN_LOCAL_STORAGE = process.env.REACT_APP_USER_KEY_IN_LOCAL_STORAGE as string;
 
 const initialState: AuthState = {
   user: getLocalStorageItem(USER_KEY_IN_LOCAL_STORAGE),

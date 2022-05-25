@@ -35,12 +35,11 @@ const AdminPage: React.FC = () => {
       <ItemsContainer>
         {items.map((itemProps) => <AdminItemCard key={itemProps.id} {...itemProps} updateItem={() => dispatch(itemsUpdateItemAction(itemProps.id))} deleteItem={() => dispatch(itemsDeleteItemAction(itemProps.id))} />)}
       </ItemsContainer>
-    ) : <Typography>Prekiu nera</Typography>;
+    ) : <Typography>Prekių nėra</Typography>;
   }
   return (
     <Container sx={{ my: 5, textAlign: 'center' }}>
       <SectionTitle title="Admin Page" description={`Labas, ${user?.email}!`} />
-      <Button variant="contained" onClick={() => dispatch(authLogoutAction)}>Atsijungti</Button>
       <Button onClick={() => dispatch(itemsCreateNewItemAction)} variant="contained" sx={{ ml: 2 }}>Sukurti naują produktą</Button>
       {content}
     </Container>

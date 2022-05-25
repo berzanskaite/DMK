@@ -5,6 +5,7 @@ type Item = {
   price: number,
   weight: number,
   img: string,
+  composition: string,
 };
 
 export default Item;
