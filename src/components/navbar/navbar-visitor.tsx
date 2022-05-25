@@ -2,7 +2,7 @@ import React from 'react';
 import {
   AppBar, Container, Toolbar,
 } from '@mui/material';
-import NavbarScrollLink from './navbarlinkscroll';
+import NavbarScrollLink from './navbar-scroll-link';
 
 const NavbarVisitor: React.FC = () => (
   <AppBar

@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
 import { selectLoggedIn } from 'store/selectors';
-import NavbarLink from './navbarlink';
+import NavbarLink from './navbar-link';
 
 const NavbarAuth: React.FC = () => {
   const dispatch = useRootDispatch();

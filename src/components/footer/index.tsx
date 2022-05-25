@@ -3,7 +3,6 @@ import {
 } from '@mui/material';
 import { Link as ScrollLink } from 'react-scroll';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
 const Footer: React.FC = () => (
   <Box px={{ xs: 3, sm: 10 }} py={{ xs: 5, sm: 10 }} bgcolor="manoSpalva.main" color="white">
