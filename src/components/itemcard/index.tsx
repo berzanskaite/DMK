@@ -18,8 +18,8 @@ const ItemCard: React.FC<ItemCardProps> = ({
     sx={{
       display: 'flex',
       flexDirection: 'column',
-      height: 384,
-      width: 345,
+      height: 307,
+      width: 300,
       textAlign: 'center',
       pb: 1,
     }}
@@ -30,13 +30,13 @@ const ItemCard: React.FC<ItemCardProps> = ({
           component="img"
           src={img}
           alt={title}
-          sx={{ height: 240, width: 345 }}
+          sx={{ height: 200, width: 300 }}
         />
 
-        <Typography gutterBottom variant="h5">
+        <Typography gutterBottom variant="h6">
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ px: 2 }}>
+        <Typography color="text.secondary" sx={{ px: 2, fontSize: 12 }}>
           {description}
         </Typography>
       </Box>
