@@ -15,7 +15,7 @@ const NavbarAuth: React.FC = () => {
     <AppBar
       position="sticky"
       sx={{
-        bgcolor: 'manoSpalva.main', boxShadow: '0',
+        bgcolor: 'bakery.main', boxShadow: '0',
       }}
     >
       <Container sx={{

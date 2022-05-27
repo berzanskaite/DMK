@@ -9,12 +9,12 @@ const FooterScrollLink = styled(Link)(({ theme }) => ({
   fontFamily: 'Playfair Display',
 
   '&.active': {
-    color: theme.palette.manoSpalva.light,
+    color: theme.palette.bakery.light,
     fontWeight: 600,
   },
 
   ':hover': {
-    color: theme.palette.manoSpalva.light,
+    color: theme.palette.bakery.light,
     cursor: 'pointer',
     fontWeight: 600,
   },

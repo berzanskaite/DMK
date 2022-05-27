@@ -8,7 +8,7 @@ const NavbarVisitor: React.FC = () => (
   <AppBar
     position="sticky"
     sx={{
-      bgcolor: 'manoSpalva.main', boxShadow: '0',
+      bgcolor: 'bakery.main', boxShadow: '0',
     }}
   >
     <Container sx={{
@@ -20,7 +20,7 @@ const NavbarVisitor: React.FC = () => (
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <NavbarScrollLink smooth offset={-100} to="home">DMK</NavbarScrollLink>
-        <NavbarScrollLink smooth offset={-100} to="orders">Užsakymai</NavbarScrollLink>
+        <NavbarScrollLink smooth offset={-100} to="assortment">Asortimentas</NavbarScrollLink>
         <NavbarScrollLink smooth offset={-100} to="about">Apie</NavbarScrollLink>
         <NavbarScrollLink smooth offset={-100} to="reviews">Atsiliepimai</NavbarScrollLink>
         <NavbarScrollLink smooth offset={-100} to="contacts">Kontaktai</NavbarScrollLink>

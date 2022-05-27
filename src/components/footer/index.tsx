@@ -7,7 +7,7 @@ import FooterScrollLink from './footer-scroll-link';
 import FooterLink from './footer-link';
 
 const Footer: React.FC = () => (
-  <Box px={{ xs: 3, sm: 10 }} py={{ xs: 5, sm: 10 }} bgcolor="manoSpalva.main" color="white">
+  <Box px={{ xs: 3, sm: 10 }} py={{ xs: 5, sm: 10 }} bgcolor="bakery.main" color="white">
     <Container maxWidth="lg">
       <Grid container spacing={5}>
         <Grid item xs={12} sm={4}>

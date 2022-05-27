@@ -54,7 +54,6 @@ const ItemCard: React.FC<ItemCardProps> = ({
             kg)
           </Typography>
 
-          <Button size="small">Užsakyti</Button>
         </Box>
 
       </Box>

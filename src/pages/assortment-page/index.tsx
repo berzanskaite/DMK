@@ -6,7 +6,7 @@ import SectionTitle from '../../components/sectiontitle';
 import Item from '../../types/item';
 import ItemsContainer from '../../components/itemscontainer';
 
-const OrdersPage: React.FC = () => {
+const AssortmentPage: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
@@ -16,11 +16,11 @@ const OrdersPage: React.FC = () => {
   }, []);
 
   return (
-    <Container id="orders">
-      <SectionTitle title="Užsisakyk" description="Nuo ruginės duonos iki šventinių pyragų" />
+    <Container id="assortment">
+      <SectionTitle title="Asortimentas" description="Nuo ruginės duonos iki šventinių pyragų" />
       <ItemsContainer>{items.map((itemProps) => <ItemCard key={itemProps.id} {...itemProps} />)}</ItemsContainer>
     </Container>
   );
 };
 
-export default OrdersPage;
+export default AssortmentPage;

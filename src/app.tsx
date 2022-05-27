@@ -6,15 +6,15 @@ import {
 } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 
-import RequireVisitor from 'routing/require-visitor';
-import PageLayoutAuth from 'components/page-layout-auth';
-import AdminChangeItemForm from 'pages/admin-page/admin-change-item-form';
-import store from './store';
+import PageLayoutAuth from './components/page-layout-auth';
 import PageLayout from './components/page-layout';
+import RequireAuth from './routing/require-auth';
+import RequireVisitor from './routing/require-visitor';
+import store from './store';
 import HomePage from './pages/home-page';
 import LoginPage from './pages/login-page';
-import AdminPage from './pages/admin-page';
-import RequireAuth from './routing/require-auth';
+import AdminPage from './pages/admin/admin-page';
+import AdminChangeItemPage from './pages/admin/admin-change-item-page';
 
 const App: React.FC = () => (
   <BrowserRouter>
@@ -26,7 +26,7 @@ const App: React.FC = () => (
         <Route path="/" element={<PageLayoutAuth />}>
           <Route path="/auth/login" element={<RequireVisitor><LoginPage /></RequireVisitor>} />
           <Route path="/admin" element={<RequireAuth><AdminPage /></RequireAuth>} />
-          <Route path="/admin/change-item" element={<RequireAuth><AdminChangeItemForm /></RequireAuth>} />
+          <Route path="/admin/change-item/:id" element={<RequireAuth><AdminChangeItemPage /></RequireAuth>} />
         </Route>
       </Routes>
     </ReduxProvider>

@@ -15,15 +15,15 @@ const NavbarScrollLink = styled(Link)(({ theme }) => ({
   fontFamily: 'Playfair Display SC',
 
   '&.active': {
-    color: theme.palette.manoSpalva.light,
-    boxShadow: `inset 0px -3px 0px 0px ${theme.palette.manoSpalva.light}`,
+    color: theme.palette.bakery.light,
+    boxShadow: `inset 0px -3px 0px 0px ${theme.palette.bakery.light}`,
     // fontWeight: 900,
   },
 
   ':hover': {
-    color: theme.palette.manoSpalva.light,
+    color: theme.palette.bakery.light,
     cursor: 'pointer',
-    boxShadow: `inset 0px -3px 0px 0px ${theme.palette.manoSpalva.light}`,
+    boxShadow: `inset 0px -3px 0px 0px ${theme.palette.bakery.light}`,
     // fontWeight: 900,
   },
 

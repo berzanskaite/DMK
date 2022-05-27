@@ -11,7 +11,7 @@ const bakeryTheme = createTheme({
       contrastText: '#ffffff',
     },
 
-    manoSpalva: {
+    bakery: {
       main: '#CB6A75',
       light: '#e0a6ad',
       dark: '#6b2029',

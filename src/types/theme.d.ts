@@ -8,10 +8,10 @@ declare module '@mui/material/styles/createMixins' {
 
 declare module '@mui/material/styles/createPalette' {
   interface PaletteOptions {
-    manoSpalva?: PaletteColorOptions;
+    bakery?: PaletteColorOptions;
   }
 
   interface Palette {
-    manoSpalva: PaletteColor;
+    bakery: PaletteColor;
   }
 }

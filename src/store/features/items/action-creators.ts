@@ -33,12 +33,12 @@ export const itemsCreateNewItemAction: ItemsCreateNewItemAction = {
   type: 'ITEMS_CREATE_NEW_ITEM',
 };
 
-export const itemsUpdateItemAction = (id: string): ItemsUpdateItemAction => ({
+export const createItemsUpdateItemAction = (id: string): ItemsUpdateItemAction => ({
   type: 'ITEMS_UPDATE_ITEM',
   payload: { id },
 });
 
-export const itemsDeleteItemAction = (id: string): ItemsDeleteItemAction => ({
+export const createItemsDeleteItemAction = (id: string): ItemsDeleteItemAction => ({
   type: 'ITEMS_DELETE_ITEM',
   payload: { id },
 });
