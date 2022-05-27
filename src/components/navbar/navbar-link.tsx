@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import { styled } from '@mui/material';
-import { Link } from 'react-scroll';
 
 const NavbarLink = styled(NavLink)(({ theme }) => ({
   display: 'inline-flex',

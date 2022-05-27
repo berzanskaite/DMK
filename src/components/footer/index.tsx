@@ -3,30 +3,35 @@ import {
 } from '@mui/material';
 import { Link as ScrollLink } from 'react-scroll';
 import React from 'react';
+import FooterScrollLink from './footer-scroll-link';
+import FooterLink from './footer-link';
 
 const Footer: React.FC = () => (
   <Box px={{ xs: 3, sm: 10 }} py={{ xs: 5, sm: 10 }} bgcolor="manoSpalva.main" color="white">
     <Container maxWidth="lg">
       <Grid container spacing={5}>
         <Grid item xs={12} sm={4}>
-          <Box borderBottom={1}>Help</Box>
+          <Box borderBottom={1}>DMK</Box>
           <Box>
-            <ScrollLink to="home">Home</ScrollLink>
+            <FooterScrollLink smooth offset={-100} to="home">Pagrindinis</FooterScrollLink>
           </Box>
           <Box>
-            <ScrollLink to="orders">Uzsakymai</ScrollLink>
+            <FooterScrollLink smooth offset={-100} to="orders">Užsakymai</FooterScrollLink>
           </Box>
           <Box>
-            <ScrollLink to="reviews">Atsiliepimai</ScrollLink>
+            <FooterScrollLink smooth offset={-100} to="about">Apie</FooterScrollLink>
+          </Box>
+          <Box>
+            <FooterScrollLink smooth offset={-100} to="reviews">Atsiliepimai</FooterScrollLink>
+          </Box>
+          <Box>
+            <FooterScrollLink smooth offset={-100} to="contacts">Kontaktai</FooterScrollLink>
           </Box>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Box borderBottom={1}>Account</Box>
+          <Box borderBottom={1}>TVS</Box>
           <Box>
-            <Link href="/admin">Admin</Link>
-          </Box>
-          <Box>
-            <Link href="/auth/register">Registruotis</Link>
+            <FooterLink to="/admin">Administratoriaus puslapis</FooterLink>
           </Box>
         </Grid>
       </Grid>
