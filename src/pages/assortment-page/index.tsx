@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container } from '@mui/material';
+import { Item } from 'types';
 import ItemCard from '../../components/itemcard';
 import SectionTitle from '../../components/sectiontitle';
-import Item from '../../types/item';
 import ItemsContainer from '../../components/itemscontainer';
 
 const AssortmentPage: React.FC = () => {
