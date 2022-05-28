@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 
+import AdminCreateNewItemPage from 'pages/admin/admin-create-new-item-page';
 import PageLayoutAuth from './components/page-layout-auth';
 import PageLayout from './components/page-layout';
 import RequireAuth from './routing/require-auth';
@@ -27,6 +28,7 @@ const App: React.FC = () => (
           <Route path="/auth/login" element={<RequireVisitor><LoginPage /></RequireVisitor>} />
           <Route path="/admin" element={<RequireAuth><AdminPage /></RequireAuth>} />
           <Route path="/admin/change-item/:id" element={<RequireAuth><AdminChangeItemPage /></RequireAuth>} />
+          <Route path="/admin/create-new-item" element={<RequireAuth><AdminCreateNewItemPage /></RequireAuth>} />
         </Route>
       </Routes>
     </ReduxProvider>
