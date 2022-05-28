@@ -15,9 +15,6 @@ import { createItemsUpdateItemAction, itemsFetchItemsAction } from 'store/action
 type ChangeItemFormikConfig = FormikConfig<Item>;
 
 const validationSchema = Yup.object({
-  id: Yup.string()
-    .required('Privalomas laukas')
-    .min(5, 'Mažiausiai 5 simboliai'),
   title: Yup.string()
     .required('Privalomas laukas'),
   description: Yup.string()
@@ -40,7 +37,7 @@ const AdminChangeItemPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const isLoading = useRootSelector(selectItemsLoading);
+  const loading = useRootSelector(selectItemsLoading);
   const item = useRootSelector(selectItemById(id));
   const [hasPrefilled, setHasPrefilled] = useState(!!item);
 
@@ -53,8 +50,6 @@ const AdminChangeItemPage: React.FC = () => {
     title: '',
     weight: 0,
   };
-
-  // console.log('itemd: ', itemId, item);
 
   const handleSubmitForm: ChangeItemFormikConfig['onSubmit'] = (values) => {
     const changeAction = createItemsUpdateItemAction(values);
@@ -79,11 +74,11 @@ const AdminChangeItemPage: React.FC = () => {
   });
 
   useEffect(() => {
-    if (!isLoading && !hasPrefilled) {
+    if (!loading && !hasPrefilled) {
       if (item) { setValues(item); }
       setHasPrefilled(true);
     }
-  }, [isLoading, item]);
+  }, [loading, item]);
 
   useEffect(() => {
     dispatch(itemsFetchItemsAction);
@@ -122,7 +117,7 @@ const AdminChangeItemPage: React.FC = () => {
             value={values.id}
             fullWidth
             inputProps={{ autoComplete: 'off' }}
-            onChange={handleChange}
+            disabled
           />
           <TextField
             name="title"
@@ -132,10 +127,10 @@ const AdminChangeItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.title}
             onChange={handleChange}
-          // onBlur={ }
-          // error={ }
-          // helperText={ }
-          // disabled={ }
+            onBlur={handleBlur}
+            error={touched.title && Boolean(errors.title)}
+            helperText={touched.title && errors.title}
+            disabled={loading}
           />
           <TextField
             name="description"
@@ -145,10 +140,10 @@ const AdminChangeItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.description}
             onChange={handleChange}
-          // onBlur={ }
-          // error={ }
-          // helperText={ }
-          // disabled={ }
+            onBlur={handleBlur}
+            error={touched.description && Boolean(errors.description)}
+            helperText={touched.description && errors.description}
+            disabled={loading}
           />
           <TextField
             name="price"
@@ -158,6 +153,10 @@ const AdminChangeItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.price}
             onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.price && Boolean(errors.price)}
+            helperText={touched.price && errors.price}
+            disabled={loading}
           />
           <TextField
             name="weight"
@@ -167,6 +166,10 @@ const AdminChangeItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.weight}
             onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.weight && Boolean(errors.weight)}
+            helperText={touched.weight && errors.weight}
+            disabled={loading}
           />
           <TextField
             name="composition"
@@ -176,6 +179,10 @@ const AdminChangeItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.composition}
             onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.composition && Boolean(errors.composition)}
+            helperText={touched.composition && errors.composition}
+            disabled={loading}
           />
           <TextField
             name="img"
@@ -184,17 +191,18 @@ const AdminChangeItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.img}
             onChange={handleChange}
+            disabled={loading}
+
           />
         </Box>
         <Button
           variant="contained"
           size="large"
           type="submit"
-          // disabled={ }
+          disabled={loading}
           sx={{ width: '120px' }}
         >
-          {/* {loading ? <CircularProgress size="26px" /> :  */}
-          Redaguoti
+          {loading ? <CircularProgress size="26px" /> : 'Redaguoti'}
         </Button>
       </Paper>
     </Container>
