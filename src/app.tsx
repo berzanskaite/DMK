@@ -7,7 +7,6 @@ import {
 import { Provider as ReduxProvider } from 'react-redux';
 
 import AdminCreateNewItemPage from 'pages/admin/admin-create-new-item-page';
-import PageLayoutAuth from './components/page-layout-auth';
 import PageLayout from './components/page-layout';
 import RequireAuth from './routing/require-auth';
 import RequireVisitor from './routing/require-visitor';
@@ -23,8 +22,6 @@ const App: React.FC = () => (
       <Routes>
         <Route path="/" element={<PageLayout />}>
           <Route path="/" element={<HomePage />} />
-        </Route>
-        <Route path="/" element={<PageLayoutAuth />}>
           <Route path="/auth/login" element={<RequireVisitor><LoginPage /></RequireVisitor>} />
           <Route path="/admin" element={<RequireAuth><AdminPage /></RequireAuth>} />
           <Route path="/admin/change-item/:id" element={<RequireAuth><AdminChangeItemPage /></RequireAuth>} />
