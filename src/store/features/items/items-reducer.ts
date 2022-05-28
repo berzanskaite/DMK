@@ -27,28 +27,20 @@ const itemsReducer: Reducer<ItemsState, ItemsAction> = (state = initialState, ac
 
     case 'ITEMS_CREATE_NEW_ITEM':
       return {
-
         ...state,
         items: [
           ...state.items,
           {
+            ...action.payload.item,
             id: createId(),
-            title: 'Nauja preke',
-            description: 'Naujas aprasymas',
-            price: 12,
-            weight: 4,
-            img: 'https://www.richsusa.com/wp-content/uploads/2021/04/Bread-Guide-Hero-for-Signature-Breads.jpg',
-            composition: 'Nauja sudetis',
           },
         ],
       };
+
     case 'ITEMS_UPDATE_ITEM': {
-      const index = state.items.findIndex((x) => x.id === action.payload.id);
+      const index = state.items.findIndex((item) => item.id === action.payload.item.id);
       const newItems = [...state.items];
-      newItems[index].title = 'Redaguotas pavadinimas';
-      newItems[index].description = 'Redaguotas aprasymas';
-      newItems[index].price = 25;
-      newItems[index].weight = 13;
+      newItems[index] = action.payload.item;
       return {
         ...state,
         items: newItems,
@@ -57,7 +49,7 @@ const itemsReducer: Reducer<ItemsState, ItemsAction> = (state = initialState, ac
     case 'ITEMS_DELETE_ITEM':
       return {
         ...state,
-        items: state.items.filter((x) => x.id !== action.payload.id),
+        items: state.items.filter((item) => item.id !== action.payload.id),
       };
     default:
       return state;

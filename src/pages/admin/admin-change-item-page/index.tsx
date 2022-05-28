@@ -1,31 +1,97 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useFormik, FormikConfig } from 'formik';
+import * as Yup from 'yup';
 import {
   Box, Container, TextField, Typography, Paper, Button, CircularProgress,
 } from '@mui/material';
 import SectionTitle from 'components/sectiontitle';
 import EditIcon from '@mui/icons-material/Edit';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRootDispatch, useRootSelector } from 'store/hooks';
+import { selectItemById, selectItems, selectItemsLoading } from 'store/selectors';
+import { Item } from 'types';
+import { createItemsUpdateItemAction, itemsFetchItemsAction } from 'store/action-creators';
+
+type ChangeItemFormikConfig = FormikConfig<Item>;
+
+const validationSchema = Yup.object({
+  id: Yup.string()
+    .required('Privalomas laukas')
+    .min(5, 'Mažiausiai 5 simboliai'),
+  title: Yup.string()
+    .required('Privalomas laukas'),
+  description: Yup.string()
+    .required('Privalomas laukas')
+    .max(44, 'Daugiausiai 44 simboliai'),
+  price: Yup.number()
+    .required('Privalomas laukas')
+    .positive('Turi būti teigiamas skaičius'),
+  weight: Yup.number()
+    .required('Privalomas laukas')
+    .positive('Turi būti teigiamas skaičius'),
+  composition: Yup.string()
+    .required('Privalomas laukas')
+    .min(30, 'Mažiausiai 30 simbolių'),
+});
 
 const AdminChangeItemPage: React.FC = () => {
   const { id } = useParams();
+  const dispatch = useRootDispatch();
+
+  const navigate = useNavigate();
+
+  const isLoading = useRootSelector(selectItemsLoading);
+  const item = useRootSelector(selectItemById(id));
+  const [hasPrefilled, setHasPrefilled] = useState(!!item);
+
+  const initialValues = item || {
+    composition: '',
+    description: '',
+    id: '',
+    img: '',
+    price: 0,
+    title: '',
+    weight: 0,
+  };
+
+  // console.log('itemd: ', itemId, item);
+
+  const handleSubmitForm: ChangeItemFormikConfig['onSubmit'] = (values) => {
+    const changeAction = createItemsUpdateItemAction(values);
+    dispatch(changeAction);
+    navigate('/admin');
+  };
+
+  const {
+    values,
+    touched,
+    errors,
+    dirty,
+    isValid,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    setValues,
+  } = useFormik<Item>({
+    initialValues,
+    onSubmit: handleSubmitForm,
+    validationSchema,
+  });
 
   useEffect(() => {
-    console.log('Pirmas užkrovimas');
-    /*
-      Naudojant id gautą iš url parametrų, incijuokite atnaujinamo itemo duomenų parsiuntimą, siunčiant tam sukurtą action'ą.
+    if (!isLoading && !hasPrefilled) {
+      if (item) { setValues(item); }
+      setHasPrefilled(true);
+    }
+  }, [isLoading, item]);
 
-      Tuomet parašykite elektorių, kuris imtų tuos duomenis, į kuriuos yra įrašomas atnauninamas item'as.
-
-      GAutus duomenis nustatykite į Formik.initialValues;
-
-      Aprašykite gerą Formik Validaciją, jog būtų siunčiamos geros reikšmės
-
-      Pasubmitinus formą, atnaujintą objektą perduokite Redux'ui siounčiant Action, ir jį apdorojant įrašykite atnaujintus duomenis į JSOn-server
-    */
+  useEffect(() => {
+    dispatch(itemsFetchItemsAction);
   }, []);
+
   return (
     <Container sx={{ my: 5 }}>
-      <SectionTitle title="Redaguoti produktą" description="{title}" />
+      <SectionTitle title="Redaguoti produktą" description={values.title} />
       <Paper
         component="form"
         elevation={3}
@@ -38,7 +104,7 @@ const AdminChangeItemPage: React.FC = () => {
           p: 3,
           width: 400,
         }}
-      // onSubmit={ }
+        onSubmit={handleSubmit}
       >
         <EditIcon color="primary" sx={{ fontSize: 45 }} />
         <Box sx={{
@@ -53,8 +119,10 @@ const AdminChangeItemPage: React.FC = () => {
             name="id"
             type="text"
             label="Produkto ID"
+            value={values.id}
             fullWidth
             inputProps={{ autoComplete: 'off' }}
+            onChange={handleChange}
           />
           <TextField
             name="title"
@@ -62,8 +130,8 @@ const AdminChangeItemPage: React.FC = () => {
             label="Pavadinimas"
             fullWidth
             inputProps={{ autoComplete: 'off' }}
-          // value={ }
-          // onChange={ }
+            value={values.title}
+            onChange={handleChange}
           // onBlur={ }
           // error={ }
           // helperText={ }
@@ -75,8 +143,8 @@ const AdminChangeItemPage: React.FC = () => {
             label="Aprašymas"
             fullWidth
             inputProps={{ autoComplete: 'off' }}
-          // value={ }
-          // onChange={ }
+            value={values.description}
+            onChange={handleChange}
           // onBlur={ }
           // error={ }
           // helperText={ }
@@ -88,6 +156,8 @@ const AdminChangeItemPage: React.FC = () => {
             label="Kaina, €"
             fullWidth
             inputProps={{ autoComplete: 'off' }}
+            value={values.price}
+            onChange={handleChange}
           />
           <TextField
             name="weight"
@@ -95,6 +165,8 @@ const AdminChangeItemPage: React.FC = () => {
             label="Svoris, kg"
             fullWidth
             inputProps={{ autoComplete: 'off' }}
+            value={values.weight}
+            onChange={handleChange}
           />
           <TextField
             name="composition"
@@ -102,12 +174,16 @@ const AdminChangeItemPage: React.FC = () => {
             label="Sudedamosios dalys"
             fullWidth
             inputProps={{ autoComplete: 'off' }}
+            value={values.composition}
+            onChange={handleChange}
           />
           <TextField
             name="img"
-            type="file"
+            type="text"
             fullWidth
             inputProps={{ autoComplete: 'off' }}
+            value={values.img}
+            onChange={handleChange}
           />
         </Box>
         <Button

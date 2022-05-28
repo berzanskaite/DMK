@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import { AppAction, RootState } from '../../types';
+import ItemsService from 'services/items-api-service';
+import { AppAction } from '../../types';
 import {
   ItemsFetchItemsLoadingAction,
   ItemsFetchItemsSuccessAction,
@@ -8,7 +9,7 @@ import {
   ItemsUpdateItemAction,
   ItemsDeleteItemAction,
 } from './types';
-import { Item } from '../../../types';
+import { Item, CreateItem } from '../../../types';
 import pause from '../../../helpers/pause';
 
 const itemsFetchItemsLoadingAction: ItemsFetchItemsLoadingAction = {
@@ -23,22 +24,38 @@ const createItemsFecthItemsSuccessAction = (items: Item[]): ItemsFetchItemsSucce
 export const itemsFetchItemsAction = async (dispatch: Dispatch<AppAction>): Promise<void> => {
   dispatch(itemsFetchItemsLoadingAction);
 
-  const { data } = await axios.get<Item[]>('http://localhost:8000/items');
+  const items = await ItemsService.fetchItems();
   await pause(2000);
-  const shopFecthItemsSuccessAction = createItemsFecthItemsSuccessAction(data);
-  dispatch(shopFecthItemsSuccessAction);
+  const itemsFetchItemsSuccessAction = createItemsFecthItemsSuccessAction(items);
+  dispatch(itemsFetchItemsSuccessAction);
 };
 
-export const itemsCreateNewItemAction: ItemsCreateNewItemAction = {
-  type: 'ITEMS_CREATE_NEW_ITEM',
-};
-
-export const createItemsUpdateItemAction = (id: string): ItemsUpdateItemAction => ({
+const itemsUpdateItemAction = (item: Item): ItemsUpdateItemAction => ({
   type: 'ITEMS_UPDATE_ITEM',
-  payload: { id },
+  payload: { item },
 });
 
-export const createItemsDeleteItemAction = (id: string): ItemsDeleteItemAction => ({
+export const createItemsUpdateItemAction = (item: Item) => async (dispatch: Dispatch<AppAction>) => {
+  await ItemsService.changeItem(item);
+  dispatch(itemsUpdateItemAction(item));
+};
+
+const itemsDeleteItemAction = (id: string): ItemsDeleteItemAction => ({
   type: 'ITEMS_DELETE_ITEM',
   payload: { id },
 });
+
+export const createItemsDeleteItemAction = (id: string) => async (dispatch: Dispatch<AppAction>) => {
+  await ItemsService.deleteItem(id);
+  dispatch(itemsDeleteItemAction(id));
+};
+
+const itemsCreateNewItemAction = (item: CreateItem): ItemsCreateNewItemAction => ({
+  type: 'ITEMS_CREATE_NEW_ITEM',
+  payload: { item },
+});
+
+export const createItemsNewItemAction = (item: CreateItem) => async (dispatch: Dispatch<AppAction>): Promise<void> => {
+  await ItemsService.createNewItem(item);
+  dispatch(itemsCreateNewItemAction(item));
+};
