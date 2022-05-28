@@ -1,4 +1,4 @@
-import { Item } from '../../../types';
+import { Item, CreateItem } from 'types';
 
 export type ItemsState = {
   items: Item[],
@@ -25,12 +25,15 @@ export type ItemsFetchItemsFailureAction = {
 
 export type ItemsCreateNewItemAction = {
   type: 'ITEMS_CREATE_NEW_ITEM',
+  payload: {
+    item: CreateItem;
+  }
 };
 
 export type ItemsUpdateItemAction = {
   type: 'ITEMS_UPDATE_ITEM',
   payload: {
-    id: string,
+    item: Item;
   }
 };
 

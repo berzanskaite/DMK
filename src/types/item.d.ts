@@ -1,4 +1,4 @@
-type Item = {
+export type Item = {
   id: string,
   title: string,
   description: string,
@@ -8,4 +8,4 @@ type Item = {
   composition: string,
 };
 
-export default Item;
+export type CreateItem = Omit<Item, 'id'>;
