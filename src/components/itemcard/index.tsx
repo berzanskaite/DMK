@@ -26,13 +26,14 @@ const ItemCard: React.FC<ItemCardProps> = ({
   >
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Box>
-        <Box
-          component="img"
-          src={img}
-          alt={title}
-          sx={{ height: 200, width: 300 }}
-        />
-
+        {img && (
+          <Box
+            component="img"
+            src={img}
+            alt={title}
+            sx={{ height: 200, width: 300 }}
+          />
+        )}
         <Typography gutterBottom variant="h6">
           {title}
         </Typography>
