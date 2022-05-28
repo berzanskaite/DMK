@@ -2,7 +2,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box, Button, IconButton, Paper, Typography,
+  Box, IconButton, Paper, Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react';
@@ -20,7 +20,6 @@ const ItemCard: React.FC<ItemCardProps> = ({
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location.pathname);
 
   return (
     <Paper

@@ -17,14 +17,12 @@ const NavbarScrollLink = styled(Link)(({ theme }) => ({
   '&.active': {
     color: theme.palette.bakery.light,
     boxShadow: `inset 0px -3px 0px 0px ${theme.palette.bakery.light}`,
-    // fontWeight: 900,
   },
 
   ':hover': {
     color: theme.palette.bakery.light,
     cursor: 'pointer',
     boxShadow: `inset 0px -3px 0px 0px ${theme.palette.bakery.light}`,
-    // fontWeight: 900,
   },
 
 }));
