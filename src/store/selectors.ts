@@ -12,3 +12,6 @@ export const selectRedirect = (state: RootState) => state.navigation.redirect;
 // items selectors
 export const selectItems = (state: RootState) => state.items.items;
 export const selectItemsLoading = (state: RootState) => state.items.loading;
+
+export const selectItemById = (id?: string) => (state: RootState) => (id ? state
+  .items.items.find((item) => id === item.id) : undefined);
