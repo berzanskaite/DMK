@@ -61,6 +61,5 @@ export const createLoginAction = (
   credentials: Credentials,
   redirect: string,
 ) => async (dispatch: Dispatch<AppAction>): Promise<void> => {
-  console.log('createLoginAction');
   await authenticate(dispatch, AuthService.login, [credentials], redirect);
 };

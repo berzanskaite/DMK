@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useFormik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 import {
-  Box, Container, TextField, Typography, Paper, Button, CircularProgress,
+  Box, Container, TextField, Paper, Button, CircularProgress,
 } from '@mui/material';
 import SectionTitle from 'components/sectiontitle';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
-import { selectItemById, selectItems, selectItemsLoading } from 'store/selectors';
+import { selectItemById, selectItemsLoading } from 'store/selectors';
 import { Item } from 'types';
 import { createItemsUpdateItemAction, itemsFetchItemsAction } from 'store/action-creators';
 

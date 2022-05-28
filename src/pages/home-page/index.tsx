@@ -21,7 +21,6 @@ const HomePage: React.FC = () => (
   <>
     <Container id="home" sx={{ mb: 5, height: '100vh' }}>
 
-      {/* <img src="./assets/logo2.svg" alt="" /> */}
       <SectionTitle title="Kepyklos puslapis" description="Kepykla įsikūrusi 2023 m. Vilniuje" />
 
       <Box component="section" sx={(theme) => theme.mixins.section}>

@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux';
-import axios from 'axios';
 import ItemsService from 'services/items-api-service';
 import { AppAction } from '../../types';
 import {
