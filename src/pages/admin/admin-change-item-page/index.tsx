@@ -61,8 +61,6 @@ const AdminChangeItemPage: React.FC = () => {
     values,
     touched,
     errors,
-    dirty,
-    isValid,
     handleChange,
     handleBlur,
     handleSubmit,

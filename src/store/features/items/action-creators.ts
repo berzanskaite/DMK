@@ -23,7 +23,6 @@ const createItemsFecthItemsSuccessAction = (items: Item[]): ItemsFetchItemsSucce
 
 export const itemsFetchItemsAction = async (dispatch: Dispatch<AppAction>): Promise<void> => {
   dispatch(itemsFetchItemsLoadingAction);
-
   const items = await ItemsService.fetchItems();
   await pause(2000);
   const itemsFetchItemsSuccessAction = createItemsFecthItemsSuccessAction(items);

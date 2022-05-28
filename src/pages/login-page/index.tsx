@@ -80,7 +80,6 @@ const LoginPage: React.FC = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           error={touched.email && Boolean(errors.email)}
-          // helperText={touched.email && errors.email}
           disabled={loading}
         />
         {touched.email && errors.email ? (
@@ -100,7 +99,6 @@ const LoginPage: React.FC = () => {
           onChange={handleChange}
           onBlur={handleBlur}
           error={touched.password && Boolean(errors.password)}
-          // helperText={touched.password && errors.password}
           disabled={loading}
         />
         {touched.password && errors.password ? (

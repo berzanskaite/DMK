@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useFormik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 import {
-  Box, Container, TextField, Typography, Paper, Button, CircularProgress,
+  Box, Container, TextField, Typography, Paper, Button, CircularProgress, Alert,
 } from '@mui/material';
 import SectionTitle from 'components/sectiontitle';
 import EditIcon from '@mui/icons-material/Edit';
 import { useRootDispatch } from 'store/hooks';
-import { CreateItem, Item } from 'types';
+import { CreateItem } from 'types';
 import { createItemsNewItemAction } from 'store/action-creators';
+import { useNavigate } from 'react-router-dom';
 
 type CreateNewItemFormikConfig = FormikConfig<CreateItem>;
 
@@ -31,6 +32,7 @@ const validationSchema = Yup.object({
 
 const AdminCreateNewItemPage: React.FC = () => {
   const dispatch = useRootDispatch();
+  const navigate = useNavigate();
   const initialValues = {
     composition: '',
     description: '',
@@ -41,22 +43,26 @@ const AdminCreateNewItemPage: React.FC = () => {
   };
 
   const handleSubmitForm: CreateNewItemFormikConfig['onSubmit'] = (item) => {
-    console.log(item);
     const createAction = createItemsNewItemAction(item);
     dispatch(createAction);
+    navigate('/admin');
   };
 
   const {
     values,
-    handleChange,
-    handleSubmit,
+    touched,
     errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
   } = useFormik<CreateItem>({
     initialValues,
     onSubmit: handleSubmitForm,
     validationSchema,
   });
+
   console.log(errors);
+  const successMessage = 'Pavyko';
   return (
     <Container sx={{ my: 5 }}>
       <SectionTitle title="Sukurti naują produktą" description="" />
@@ -91,10 +97,9 @@ const AdminCreateNewItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.title}
             onChange={handleChange}
-          // onBlur={ }
-          // error={ }
-          // helperText={ }
-          // disabled={ }
+            onBlur={handleBlur}
+            error={touched.title && Boolean(errors.title)}
+            helperText={touched.title && errors.title}
           />
           <TextField
             name="description"
@@ -104,10 +109,9 @@ const AdminCreateNewItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.description}
             onChange={handleChange}
-          // onBlur={ }
-          // error={ }
-          // helperText={ }
-          // disabled={ }
+            onBlur={handleBlur}
+            error={touched.description && Boolean(errors.description)}
+            helperText={touched.description && errors.description}
           />
           <TextField
             name="price"
@@ -117,6 +121,9 @@ const AdminCreateNewItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.price}
             onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.price && Boolean(errors.price)}
+            helperText={touched.price && errors.price}
           />
           <TextField
             name="weight"
@@ -126,6 +133,9 @@ const AdminCreateNewItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.weight}
             onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.weight && Boolean(errors.weight)}
+            helperText={touched.weight && errors.weight}
           />
           <TextField
             name="composition"
@@ -135,26 +145,41 @@ const AdminCreateNewItemPage: React.FC = () => {
             inputProps={{ autoComplete: 'off' }}
             value={values.composition}
             onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.composition && Boolean(errors.composition)}
+            helperText={touched.composition && errors.composition}
           />
-          {/* <TextField
+          <TextField
             name="img"
             type="text"
             fullWidth
             inputProps={{ autoComplete: 'off' }}
             value={values.img}
             onChange={handleChange}
-          /> */}
+          />
         </Box>
         <Button
           variant="contained"
           size="large"
           type="submit"
-          // disabled={ }
           sx={{ width: '120px' }}
         >
-          {/* {loading ? <CircularProgress size="26px" /> :  */}
           Sukurti
         </Button>
+        {!errors && (
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Alert
+              sx={{
+                position: 'absolute',
+                mt: 3,
+              }}
+              color="error"
+              onClick={() => navigate('/admin')}
+            >
+              {successMessage}
+            </Alert>
+          </Box>
+        )}
       </Paper>
     </Container>
   );
