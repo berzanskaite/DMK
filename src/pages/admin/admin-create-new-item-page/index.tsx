@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 import {
-  Box, Container, TextField, Typography, Paper, Button, CircularProgress, Alert,
+  Box, Container, TextField, Paper, Button,
 } from '@mui/material';
 import SectionTitle from 'components/sectiontitle';
 import EditIcon from '@mui/icons-material/Edit';
@@ -61,8 +61,6 @@ const AdminCreateNewItemPage: React.FC = () => {
     validationSchema,
   });
 
-  console.log(errors);
-  const successMessage = 'Pavyko';
   return (
     <Container sx={{ my: 5 }}>
       <SectionTitle title="Sukurti naują produktą" description="" />
@@ -166,20 +164,6 @@ const AdminCreateNewItemPage: React.FC = () => {
         >
           Sukurti
         </Button>
-        {!errors && (
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Alert
-              sx={{
-                position: 'absolute',
-                mt: 3,
-              }}
-              color="error"
-              onClick={() => navigate('/admin')}
-            >
-              {successMessage}
-            </Alert>
-          </Box>
-        )}
       </Paper>
     </Container>
   );

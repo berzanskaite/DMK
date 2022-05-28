@@ -1,7 +1,6 @@
 import {
-  Container, Grid, Box, Link,
+  Container, Grid, Box,
 } from '@mui/material';
-import { Link as ScrollLink } from 'react-scroll';
 import React from 'react';
 import FooterScrollLink from './footer-scroll-link';
 import FooterLink from './footer-link';
