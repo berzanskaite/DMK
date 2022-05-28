@@ -3,10 +3,9 @@ import {
   Button, CircularProgress, Container, Typography,
 } from '@mui/material';
 import ItemsContainer from 'components/itemscontainer';
-import { Item } from 'types';
 import { useNavigate } from 'react-router-dom';
+import ItemCard from 'components/itemcard';
 import SectionTitle from '../../../components/sectiontitle';
-import AdminItemCard from './admin-item-card';
 import { useRootSelector } from '../../../store';
 import { selectUser, selectItems, selectItemsLoading } from '../../../store/selectors';
 import { useRootDispatch } from '../../../store/hooks';
@@ -26,8 +25,6 @@ const AdminPage: React.FC = () => {
     dispatch(itemsFetchItemsAction);
   }, []);
 
-  console.log(items, itemsLoading);
-
   let content = (
     <Container sx={{ my: 5, textAlign: 'center' }}><CircularProgress color="primary" size={60} /></Container>
   );
@@ -36,7 +33,7 @@ const AdminPage: React.FC = () => {
     content = items.length > 0 ? (
       <ItemsContainer>
         {items.map((itemProps) => (
-          <AdminItemCard
+          <ItemCard
             key={itemProps.id}
             {...itemProps}
             deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
