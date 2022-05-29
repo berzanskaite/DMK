@@ -1,8 +1,8 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import { useFormik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 import {
-  Typography, Container, Box, TextField, Button, Paper,
+  Typography, Container, Box, TextField, Button, Paper, Alert,
 } from '@mui/material';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import SectionTitle from '../../components/sectiontitle';
@@ -12,6 +12,8 @@ type ContactFormValues = {
   email: string,
   message: string
 };
+
+type ContactsFormikConfig = FormikConfig<ContactFormValues>;
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -26,16 +28,28 @@ const validationSchema = Yup.object({
 });
 
 const ContactsPage: React.FC = () => {
-  const formik = useFormik<ContactFormValues>({
-    initialValues: {
-      name: '',
-      email: '',
-      message: '',
-    },
+  const initialValues: ContactFormValues = {
+    name: '',
+    email: '',
+    message: '',
+  };
+
+  const handleSubmitContactForm: ContactsFormikConfig['onSubmit'] = (values) => {
+    console.log(values);
+  };
+
+  const {
+    values,
+    touched,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    isSubmitting,
+  } = useFormik<ContactFormValues>({
+    initialValues,
+    onSubmit: handleSubmitContactForm,
     validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-    },
   });
 
   return (
@@ -53,7 +67,7 @@ const ContactsPage: React.FC = () => {
           p: 3,
           width: 500,
         }}
-        onSubmit={formik.handleSubmit}
+        onSubmit={handleSubmit}
       >
         <ContactMailIcon color="primary" sx={{ fontSize: 45 }} />
         <Box sx={{
@@ -70,13 +84,13 @@ const ContactsPage: React.FC = () => {
               label="Jūsų vardas"
               variant="outlined"
               type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
             />
-            {formik.touched.name && formik.errors.name ? (
+            {touched.name && errors.name ? (
               <Typography sx={{ my: 0, fontSize: 12, color: 'red' }}>
-                {formik.errors.name}
+                {errors.name}
               </Typography>
             ) : <Box sx={{ my: '9px' }} />}
           </Box>
@@ -87,13 +101,13 @@ const ContactsPage: React.FC = () => {
               label="El. paštas"
               variant="outlined"
               type="email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
             />
-            {formik.touched.email && formik.errors.email ? (
+            {touched.email && errors.email ? (
               <Typography sx={{ my: 0, fontSize: 12, color: 'red' }}>
-                {formik.errors.email}
+                {errors.email}
               </Typography>
             ) : <Box sx={{ my: '9px' }} />}
           </Box>
@@ -105,16 +119,17 @@ const ContactsPage: React.FC = () => {
             label="Žinutė"
             variant="outlined"
             type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.message}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.message}
           />
-          {formik.touched.message && formik.errors.message ? (
+          {touched.message && errors.message ? (
             <Typography sx={{ mt: 1, fontSize: 12, color: 'red' }}>
-              {formik.errors.message}
+              {errors.message}
             </Typography>
           ) : <Box sx={{ my: '26px' }} />}
         </Box>
+        {isSubmitting && <Alert severity="success">{`${values.name}, jūsų žinutė paconsoleloginta. :D`}</Alert>}
         <Box>
           <Button variant="contained" size="large" type="submit" sx={{ boxShadow: '0', mt: 2 }}>Siųsti</Button>
         </Box>
