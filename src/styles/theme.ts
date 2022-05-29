@@ -31,10 +31,12 @@ const bakeryThemeSection = createTheme(bakeryTheme, {
   mixins: {
     section: {
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       gap: 2,
-      width: 800,
-      margin: '40px 0',
+      width: 500,
+      margin: '40px auto',
+      textAlign: 'center',
     },
   },
 });

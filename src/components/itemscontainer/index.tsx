@@ -7,7 +7,7 @@ const ItemsContainer = styled(Container)({
   alignItems: 'center',
   flexWrap: 'wrap',
   gap: '30px',
-  rowGap: '40px',
+  rowGap: '50px',
 
 });
 

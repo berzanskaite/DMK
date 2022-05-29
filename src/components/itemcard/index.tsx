@@ -66,10 +66,10 @@ const ItemCard: React.FC<ItemCardProps> = ({
             {(location.pathname === '/admin')
               && (
                 <>
-                  <IconButton onClick={() => deleteItem(id)}>
+                  <IconButton disableRipple sx={{ height: '28px', color: 'bakery.main' }} onClick={() => deleteItem(id)}>
                     <DeleteIcon />
                   </IconButton>
-                  <IconButton onClick={() => navigate(`/admin/change-item/${id}`)}>
+                  <IconButton disableRipple sx={{ height: '28px', color: 'bakery.light' }} onClick={() => navigate(`/admin/change-item/${id}`)}>
                     <EditIcon />
                   </IconButton>
                 </>

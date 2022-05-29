@@ -5,6 +5,7 @@ import {
 import AboutPage from 'pages/about-page';
 import ReviewsPage from 'pages/review-page';
 import AssortmentPage from 'pages/assortment-page';
+import { Link } from 'react-scroll';
 import ContactsPage from '../contacts-page/index';
 import SectionTitle from '../../components/sectiontitle';
 
@@ -12,8 +13,13 @@ const loremipsum = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ips
 
 const StyledButton = styled(Button)(({ theme }) => ({
   color: theme.palette.bakery.light,
-  backgroundColor: theme.palette.bakery.dark,
+  backgroundColor: theme.palette.bakery.main,
   padding: theme.spacing(0, 2),
+  height: '36px',
+
+  ':hover': {
+    backgroundColor: theme.palette.bakery.dark,
+  },
 
 }));
 
@@ -24,15 +30,12 @@ const HomePage: React.FC = () => (
       <SectionTitle title="Kepyklos puslapis" description="Kepykla įsikūrusi 2023 m. Vilniuje" />
 
       <Box component="section" sx={(theme) => theme.mixins.section}>
-        <img src="../assets/bread.png" alt="Bread" style={{ width: '250px' }} />
         <Typography component="p" sx={{ color: 'bakery.dark' }}>{loremipsum}</Typography>
+        <StyledButton size="large" variant="outlined">
+          <Link smooth to="assortment" offset={-90}>Išsirink savo kepinį</Link>
+        </StyledButton>
       </Box>
-      <StyledButton variant="outlined">Skaityti daugiau</StyledButton>
 
-      <Box component="section" sx={(theme) => theme.mixins.section}>
-        <Typography component="p" sx={{ color: 'bakery.main' }}>{loremipsum}</Typography>
-        <img src="../assets/baguette.png" alt="" style={{ width: '250px' }} />
-      </Box>
     </Container>
     <AssortmentPage />
     <AboutPage />

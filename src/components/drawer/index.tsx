@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import DrawerScrollLink from './drawer-scroll-link';
 
 const DrawerComp: React.FC = () => {
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
 
   return (
     <>
@@ -31,7 +31,7 @@ const DrawerComp: React.FC = () => {
           </ListItem>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <DrawerScrollLink smooth offset={-100} to="about">Apie</DrawerScrollLink>
+              <DrawerScrollLink smooth offset={-90} to="about">Apie</DrawerScrollLink>
             </ListItemText>
           </ListItem>
           <ListItem onClick={() => setOpenDrawer(false)}>
