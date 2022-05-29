@@ -37,22 +37,22 @@
       "composition": "Kvietiniai miltai, kiaušiniai, pienas, sutirštintas kondensuotas pienas, cukrus, kepimo milteliai, vanilinis cukrus."
     },
     {
+      "id": "kep05",
+      "title": "Bandelės su aguonomis",
+      "description": "Šviežiai keptos ir kvepiancios bandelės.",
+      "price": 1.6,
+      "weight": 0.2,
+      "img": "https://blog.justingredients.co.uk/wp-content/uploads/2020/07/shutterstock_1368131741-784x392.jpg",
+      "composition": "Kvietiniai miltai, kiaušiniai, pienas, cukrus, aguonos, kepimo milteliai, vanilinis cukrus."
+    },
+    {
       "id": "kep06",
       "title": "Ruginė duona",
       "description": "Sodraus skonio kasdieninė duona.",
       "price": 2,
-      "weight": 2.2,
+      "weight": 1.2,
       "img": "https://www.biggerbolderbaking.com/wp-content/uploads/2020/09/Pumpernickel-bread-WS-THumbnail.jpg",
       "composition": "Kvietiniai miltai, ruginis raugas, ruginiai miltai, druska."
-    },
-    {
-      "composition": "dfssdfsdfdssdfsdf sdfsdfsd fsd fresdfsdfsdf  sdfsdf ",
-      "description": "sdf",
-      "img": "",
-      "price": 5,
-      "title": "sdf",
-      "weight": 6,
-      "id": "GffcFvj"
     }
   ],
   "users": [
