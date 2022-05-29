@@ -21,12 +21,12 @@ const DrawerComp: React.FC = () => {
         <List>
           <ListItem>
             <ListItemText>
-              <DrawerScrollLink smooth offset={-100} to="home">DMK</DrawerScrollLink>
+              <DrawerScrollLink smooth offset={-90} to="home">DMK</DrawerScrollLink>
             </ListItemText>
           </ListItem>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <DrawerScrollLink smooth offset={-100} to="assortment">Asortimentas</DrawerScrollLink>
+              <DrawerScrollLink smooth offset={-90} to="assortment">Asortimentas</DrawerScrollLink>
             </ListItemText>
           </ListItem>
           <ListItem onClick={() => setOpenDrawer(false)}>
@@ -36,12 +36,12 @@ const DrawerComp: React.FC = () => {
           </ListItem>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <DrawerScrollLink smooth offset={-100} to="reviews">Atsiliepimai</DrawerScrollLink>
+              <DrawerScrollLink smooth offset={-90} to="reviews">Atsiliepimai</DrawerScrollLink>
             </ListItemText>
           </ListItem>
           <ListItem onClick={() => setOpenDrawer(false)}>
             <ListItemText>
-              <DrawerScrollLink smooth offset={-100} to="contacts">Kontaktai</DrawerScrollLink>
+              <DrawerScrollLink smooth offset={-90} to="contacts">Kontaktai</DrawerScrollLink>
             </ListItemText>
           </ListItem>
         </List>

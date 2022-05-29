@@ -1,4 +1,4 @@
-import { TempUser } from '../types';
+import { TempUser } from 'types';
 import ApiService from './api-service';
 
 const fetchUsers = async (email: string): Promise<TempUser[]> => {

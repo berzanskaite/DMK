@@ -1,5 +1,5 @@
-import { styled } from '@mui/material';
 import { Link } from 'react-scroll';
+import { styled } from '@mui/material';
 
 const DrawerScrollLink = styled(Link)(({ theme }) => ({
   display: 'inline-flex',

@@ -6,8 +6,8 @@ import AboutPage from 'pages/about-page';
 import ReviewsPage from 'pages/review-page';
 import AssortmentPage from 'pages/assortment-page';
 import { Link } from 'react-scroll';
-import ContactsPage from '../contacts-page/index';
-import SectionTitle from '../../components/sectiontitle';
+import ContactsPage from 'contacts-page';
+import SectionTitle from 'components/sectiontitle';
 
 const loremipsum = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quidem expedita, reiciendis officiis aut dolorum temporibus magnam facere voluptates veniam amet quos vero velit? Corporis culpa ad magnam excepturi earum. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus esse autem itaque laborum, magnam nulla atque reprehenderit error eligendi corrupti. Laboriosam, exercitationem. Quasi sapiente error omnis nihil alias, inventore modi.';
 

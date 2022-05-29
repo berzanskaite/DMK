@@ -5,7 +5,7 @@ import {
   Typography, Container, Box, TextField, Button, Paper, Alert,
 } from '@mui/material';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
-import SectionTitle from '../../components/sectiontitle';
+import SectionTitle from 'components/sectiontitle';
 
 type ContactFormValues = {
   name: string,

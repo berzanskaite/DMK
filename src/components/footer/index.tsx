@@ -1,7 +1,7 @@
+import React from 'react';
 import {
   Container, Grid, Box,
 } from '@mui/material';
-import React from 'react';
 import FooterScrollLink from './footer-scroll-link';
 import FooterLink from './footer-link';
 
@@ -12,19 +12,19 @@ const Footer: React.FC = () => (
         <Grid item xs={12} sm={4}>
           <Box borderBottom={1}>DMK</Box>
           <Box>
-            <FooterScrollLink smooth offset={-100} to="home">Pagrindinis</FooterScrollLink>
+            <FooterScrollLink smooth offset={-90} to="home">Pagrindinis</FooterScrollLink>
           </Box>
           <Box>
-            <FooterScrollLink smooth offset={-100} to="orders">Užsakymai</FooterScrollLink>
+            <FooterScrollLink smooth offset={-90} to="orders">Užsakymai</FooterScrollLink>
           </Box>
           <Box>
-            <FooterScrollLink smooth offset={-100} to="about">Apie</FooterScrollLink>
+            <FooterScrollLink smooth offset={-90} to="about">Apie</FooterScrollLink>
           </Box>
           <Box>
-            <FooterScrollLink smooth offset={-100} to="reviews">Atsiliepimai</FooterScrollLink>
+            <FooterScrollLink smooth offset={-90} to="reviews">Atsiliepimai</FooterScrollLink>
           </Box>
           <Box>
-            <FooterScrollLink smooth offset={-100} to="contacts">Kontaktai</FooterScrollLink>
+            <FooterScrollLink smooth offset={-90} to="contacts">Kontaktai</FooterScrollLink>
           </Box>
         </Grid>
         <Grid item xs={12} sm={4}>

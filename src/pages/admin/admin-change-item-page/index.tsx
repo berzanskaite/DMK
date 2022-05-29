@@ -4,13 +4,13 @@ import * as Yup from 'yup';
 import {
   Box, Container, TextField, Paper, Button, CircularProgress,
 } from '@mui/material';
-import SectionTitle from 'components/sectiontitle';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate, useParams } from 'react-router-dom';
+import SectionTitle from 'components/sectiontitle';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
 import { selectItemById, selectItemsLoading } from 'store/selectors';
-import { Item } from 'types';
 import { createItemsUpdateItemAction, itemsFetchItemsAction } from 'store/action-creators';
+import { Item } from 'types';
 import pause from 'helpers/pause';
 
 type ChangeItemFormikConfig = FormikConfig<Item>;

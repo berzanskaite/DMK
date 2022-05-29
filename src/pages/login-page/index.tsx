@@ -6,11 +6,11 @@ import {
   Box, Container, TextField, Typography,
 } from '@mui/material';
 import AuthForm from 'components/authform';
-import SectionTitle from '../../components/sectiontitle';
-import { useRootSelector } from '../../store';
-import { selectAuthLoading } from '../../store/selectors';
-import { createLoginAction } from '../../store/action-creators';
-import { useRootDispatch } from '../../store/hooks';
+import SectionTitle from 'components/sectiontitle';
+import { useRootSelector } from 'store';
+import { selectAuthLoading } from 'store/selectors';
+import { createLoginAction } from 'store/action-creators';
+import { useRootDispatch } from 'store/hooks';
 
 type LoginValues = {
   email: string,

@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
+import { User, Credentials } from 'types';
 import AuthService, { AuthPromise } from './auth-service';
-import { User, Credentials } from '../../../types';
 import {
   AuthSuccessAction,
   AuthFailureAction,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import SectionTitle from '../../components/sectiontitle';
+import SectionTitle from 'components/sectiontitle';
 
 const ReviewsPage: React.FC = () => (
   <Container id="reviews" sx={{ mb: 5, height: '100vh' }}>

@@ -1,4 +1,4 @@
-import { CreateItem, Item } from '../types';
+import { CreateItem, Item } from 'types';
 import ApiService from './api-service';
 
 const fetchItems = async (): Promise<Item[]> => {

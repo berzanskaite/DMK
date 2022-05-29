@@ -1,5 +1,7 @@
 import { Dispatch } from 'redux';
 import ItemsService from 'services/items-api-service';
+import { Item, CreateItem } from 'types';
+import pause from 'helpers/pause';
 import { AppAction } from '../../types';
 import {
   ItemsFetchItemsLoadingAction,
@@ -8,8 +10,6 @@ import {
   ItemsUpdateItemAction,
   ItemsDeleteItemAction,
 } from './types';
-import { Item, CreateItem } from '../../../types';
-import pause from '../../../helpers/pause';
 
 const itemsFetchItemsLoadingAction: ItemsFetchItemsLoadingAction = {
   type: 'ITEMS_FETCH_ITEMS_LOADING',

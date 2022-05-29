@@ -3,9 +3,9 @@ import React from 'react';
 import {
   AppBar, Container, IconButton, Toolbar, useMediaQuery, useTheme,
 } from '@mui/material';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import { useLocation } from 'react-router-dom';
 import { authLogoutAction } from 'store/action-creators';
-import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
 import { selectLoggedIn } from 'store/selectors';
 import DrawerComp from 'components/drawer';

@@ -2,17 +2,17 @@ import React, { useEffect } from 'react';
 import {
   Button, CircularProgress, Container, Typography,
 } from '@mui/material';
-import ItemsContainer from 'components/itemscontainer';
 import { useNavigate } from 'react-router-dom';
+import ItemsContainer from 'components/itemscontainer';
 import ItemCard from 'components/itemcard';
-import SectionTitle from '../../../components/sectiontitle';
-import { useRootSelector } from '../../../store';
-import { selectUser, selectItems, selectItemsLoading } from '../../../store/selectors';
-import { useRootDispatch } from '../../../store/hooks';
+import SectionTitle from 'components/sectiontitle';
+import { useRootSelector } from 'store';
+import { selectUser, selectItems, selectItemsLoading } from 'store/selectors';
+import { useRootDispatch } from 'store/hooks';
 import {
   itemsFetchItemsAction,
   createItemsDeleteItemAction,
-} from '../../../store/features/items/action-creators';
+} from 'store/features/items/action-creators';
 
 const AdminPage: React.FC = () => {
   const user = useRootSelector(selectUser);

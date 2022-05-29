@@ -4,9 +4,9 @@ import { Container } from '@mui/material';
 import { Item } from 'types';
 import { useRootDispatch } from 'store/hooks';
 import { createItemsDeleteItemAction } from 'store/action-creators';
-import ItemCard from '../../components/itemcard';
-import SectionTitle from '../../components/sectiontitle';
-import ItemsContainer from '../../components/itemscontainer';
+import ItemCard from 'components/itemcard';
+import SectionTitle from 'components/sectiontitle';
+import ItemsContainer from 'components/itemscontainer';
 
 const AssortmentPage: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);

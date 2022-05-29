@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Accordion,
   AccordionDetails,
@@ -5,11 +6,10 @@ import {
   Box, IconButton, Paper, Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import React from 'react';
-import { Item } from 'types';
-import { useLocation, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Item } from 'types';
 
 type ItemCardProps = Item & {
   deleteItem: (itemId: string) => void,

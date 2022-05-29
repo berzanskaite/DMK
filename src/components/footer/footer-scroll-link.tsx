@@ -1,5 +1,5 @@
-import { styled } from '@mui/material';
 import { Link } from 'react-scroll';
+import { styled } from '@mui/material';
 
 const FooterScrollLink = styled(Link)(({ theme }) => ({
   color: theme.palette.common.white,

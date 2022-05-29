@@ -1,7 +1,5 @@
 import { createTheme } from '@mui/material';
 
-// palette #DCD7C4,#F8DDC2,#CB6A75,#7D6467,#D5AC74
-
 const bakeryTheme = createTheme({
   palette: {
     primary: {
