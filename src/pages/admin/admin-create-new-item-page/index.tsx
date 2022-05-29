@@ -10,6 +10,7 @@ import { useRootDispatch } from 'store/hooks';
 import { CreateItem } from 'types';
 import { createItemsNewItemAction } from 'store/action-creators';
 import { useNavigate } from 'react-router-dom';
+import pause from '../../../helpers/pause';
 
 type CreateNewItemFormikConfig = FormikConfig<CreateItem>;
 
@@ -45,6 +46,7 @@ const AdminCreateNewItemPage: React.FC = () => {
   const handleSubmitForm: CreateNewItemFormikConfig['onSubmit'] = (item) => {
     const createAction = createItemsNewItemAction(item);
     dispatch(createAction);
+    pause(2000);
     navigate('/admin');
   };
 

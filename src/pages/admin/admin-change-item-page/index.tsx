@@ -11,6 +11,7 @@ import { useRootDispatch, useRootSelector } from 'store/hooks';
 import { selectItemById, selectItemsLoading } from 'store/selectors';
 import { Item } from 'types';
 import { createItemsUpdateItemAction, itemsFetchItemsAction } from 'store/action-creators';
+import pause from 'helpers/pause';
 
 type ChangeItemFormikConfig = FormikConfig<Item>;
 
@@ -54,6 +55,7 @@ const AdminChangeItemPage: React.FC = () => {
   const handleSubmitForm: ChangeItemFormikConfig['onSubmit'] = (values) => {
     const changeAction = createItemsUpdateItemAction(values);
     dispatch(changeAction);
+    pause(2000);
     navigate('/admin');
   };
 
