@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import SectionTitle from 'components/sectiontitle';
+import emailjs from 'emailjs-com';
 
 type ContactFormValues = {
   name: string,
@@ -27,6 +28,10 @@ const validationSchema = Yup.object({
     .required('Šis laukas privalomas'),
 });
 
+const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID as string;
+const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID as string;
+const USER_ID = process.env.REACT_APP_EMAILJS_USER_ID as string;
+
 const ContactsPage: React.FC = () => {
   const initialValues: ContactFormValues = {
     name: '',
@@ -35,7 +40,10 @@ const ContactsPage: React.FC = () => {
   };
 
   const handleSubmitContactForm: ContactsFormikConfig['onSubmit'] = (values) => {
-    console.log(values);
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, values, USER_ID)
+      .then(() => {
+        console.log('email sent');
+      });
   };
 
   const {
@@ -81,6 +89,7 @@ const ContactsPage: React.FC = () => {
             <TextField
               sx={{ mb: 1, mr: 2 }}
               id="name"
+              name="name"
               label="Jūsų vardas"
               variant="outlined"
               type="text"
@@ -98,6 +107,7 @@ const ContactsPage: React.FC = () => {
             <TextField
               sx={{ mb: 1 }}
               id="email"
+              name="email"
               label="El. paštas"
               variant="outlined"
               type="email"
@@ -116,6 +126,7 @@ const ContactsPage: React.FC = () => {
           <TextField
             sx={{ width: '435px', mt: 1 }}
             id="message"
+            name="message"
             label="Žinutė"
             variant="outlined"
             type="text"
@@ -129,7 +140,7 @@ const ContactsPage: React.FC = () => {
             </Typography>
           ) : <Box sx={{ my: '26px' }} />}
         </Box>
-        {isSubmitting && <Alert severity="success">{`${values.name}, jūsų žinutė paconsoleloginta. :D`}</Alert>}
+        {isSubmitting && <Alert severity="success">{`${values.name}, jūsų žinutė išsiųsta.`}</Alert>}
         <Box>
           <Button variant="contained" size="large" type="submit" sx={{ boxShadow: '0', mt: 2 }}>Siųsti</Button>
         </Box>
