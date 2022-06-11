@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 import {
-  Box, Container, TextField, Paper, Button,
+  Box, Container, TextField, Paper, Button, Typography,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
@@ -66,6 +66,7 @@ const AdminCreateNewItemPage: React.FC = () => {
   return (
     <Container sx={{ my: 5 }}>
       <SectionTitle title="Sukurti naują produktą" description="" />
+
       <Paper
         component="form"
         elevation={3}
@@ -152,6 +153,7 @@ const AdminCreateNewItemPage: React.FC = () => {
           <TextField
             name="img"
             type="text"
+            label="Nuotraukos url"
             fullWidth
             inputProps={{ autoComplete: 'off' }}
             value={values.img}
@@ -166,6 +168,7 @@ const AdminCreateNewItemPage: React.FC = () => {
         >
           Sukurti
         </Button>
+        <Button href="/admin">Grįžti į administratoriaus puslapį</Button>
       </Paper>
     </Container>
   );

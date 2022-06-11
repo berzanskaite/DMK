@@ -204,6 +204,7 @@ const AdminChangeItemPage: React.FC = () => {
         >
           {loading ? <CircularProgress size="26px" /> : 'Redaguoti'}
         </Button>
+        <Button href="/admin">Grįžti į administratoriaus puslapį</Button>
       </Paper>
     </Container>
   );
