@@ -41,6 +41,7 @@ const AdminCreateNewItemPage: React.FC = () => {
     price: 0,
     title: '',
     weight: 0,
+    categories: [],
   };
 
   const handleSubmitForm: CreateNewItemFormikConfig['onSubmit'] = (item) => {

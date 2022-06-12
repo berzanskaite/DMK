@@ -1,35 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Container } from '@mui/material';
-import { Item } from 'types';
-import { useRootDispatch } from 'store/hooks';
-import { createItemsDeleteItemAction } from 'store/action-creators';
+import { CircularProgress, Container, Typography } from '@mui/material';
+import { useRootDispatch, useRootSelector } from 'store/hooks';
+import { createItemsDeleteItemAction, itemsFetchItemsAction } from 'store/action-creators';
 import ItemCard from 'components/itemcard';
 import SectionTitle from 'components/sectiontitle';
 import ItemsContainer from 'components/itemscontainer';
+import ChangeCategorySelect from 'pages/admin/admin-page/change-category-select';
+import { selectItems, selectItemsLoading } from 'store/selectors';
 
 const AssortmentPage: React.FC = () => {
-  const [items, setItems] = useState<Item[]>([]);
+  const items = useRootSelector(selectItems);
+  const itemsLoading = useRootSelector(selectItemsLoading);
   const dispatch = useRootDispatch();
+  const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
-    axios.get<Item[]>('http://localhost:8000/items')
-      .then(({ data }) => setItems(data))
-      .catch(console.error);
+    dispatch(itemsFetchItemsAction);
   }, []);
 
+  let content = (
+    <Container sx={{ my: 5, textAlign: 'center' }}><CircularProgress color="primary" size={60} /></Container>
+  );
+
+  if (!itemsLoading) {
+    if (items.length > 0 && filter === '') {
+      content = (
+        <ItemsContainer>
+          {items.map((itemProps) => (
+            <ItemCard
+              key={itemProps.id}
+              {...itemProps}
+              deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+            />
+          ))}
+        </ItemsContainer>
+      );
+    } else if (items.length === 0) {
+      content = <Typography>Prekių nėra</Typography>;
+    } else if (filter !== '') {
+      content = (
+        <ItemsContainer>
+          {items.filter((item) => item.categories.some((category) => category === filter)).map((itemProps) => (
+            <ItemCard
+              key={itemProps.id}
+              {...itemProps}
+              deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+            />
+          ))}
+        </ItemsContainer>
+      );
+    }
+  }
   return (
-    <Container id="assortment">
+    <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} id="assortment">
       <SectionTitle title="Asortimentas" description="Nuo ruginės duonos iki šventinių pyragų" />
-      <ItemsContainer>
-        {items.map((itemProps) => (
-          <ItemCard
-            key={itemProps.id}
-            {...itemProps}
-            deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
-          />
-        ))}
-      </ItemsContainer>
+      <ChangeCategorySelect onChange={(value) => { setFilter(value); }} />
+      {content}
     </Container>
   );
 };

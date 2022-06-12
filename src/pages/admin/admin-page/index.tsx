@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  Box,
   Button, CircularProgress, Container, Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +14,7 @@ import {
   itemsFetchItemsAction,
   createItemsDeleteItemAction,
 } from 'store/features/items/action-creators';
+import ChangeCategorySelect from './change-category-select';
 
 const AdminPage: React.FC = () => {
   const user = useRootSelector(selectUser);
@@ -25,30 +27,57 @@ const AdminPage: React.FC = () => {
     dispatch(itemsFetchItemsAction);
   }, []);
 
+  const [filter, setFilter] = useState<string>('');
+
   let content = (
     <Container sx={{ my: 5, textAlign: 'center' }}><CircularProgress color="primary" size={60} /></Container>
   );
 
   if (!itemsLoading) {
-    content = items.length > 0 ? (
-      <ItemsContainer>
-        {items.map((itemProps) => (
-          <ItemCard
-            key={itemProps.id}
-            {...itemProps}
-            deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
-          />
-        ))}
-      </ItemsContainer>
-    ) : <Typography>Prekių nėra</Typography>;
+    if (items.length > 0 && filter === '') {
+      content = (
+        <ItemsContainer>
+          {items.map((itemProps) => (
+            <ItemCard
+              key={itemProps.id}
+              {...itemProps}
+              deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+            />
+          ))}
+        </ItemsContainer>
+      );
+    } else if (items.length === 0) {
+      content = <Typography>Prekių nėra</Typography>;
+    } else if (filter !== '') {
+      content = (
+        <ItemsContainer>
+          {items.filter((item) => item.categories.some((category) => category === filter)).map((itemProps) => (
+            <ItemCard
+              key={itemProps.id}
+              {...itemProps}
+              deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+            />
+          ))}
+        </ItemsContainer>
+      );
+    }
   }
   return (
     <Container sx={{ my: 5, textAlign: 'center' }}>
       <SectionTitle title="Admin Page" description={`Labas, ${user?.email}!`} />
-      <Button onClick={() => navigate('/admin/create-new-item')} variant="contained" sx={{ ml: 2 }}>Sukurti naują produktą</Button>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button onClick={() => navigate('/admin/create-new-item')} variant="contained" sx={{ ml: 2 }}>Sukurti naują produktą</Button>
+        <ChangeCategorySelect onChange={(value) => { setFilter(value); }} />
+      </Box>
       {content}
     </Container>
   );
 };
 
 export default AdminPage;
+
+/*
+i temcard mapinime reikes iterpti filtravima
+jeigu nepasirenku jokios kategorijos, rodyti visus,
+jeigu pasirenku kateogrija, rodyti vienos kategorijos item
+*/

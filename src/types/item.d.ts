@@ -6,6 +6,7 @@ export type Item = {
   weight: number,
   img: string,
   composition: string,
+  categories: string[]
 };
 
 export type CreateItem = Omit<Item, 'id'>;

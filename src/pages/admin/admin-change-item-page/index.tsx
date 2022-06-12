@@ -50,6 +50,7 @@ const AdminChangeItemPage: React.FC = () => {
     price: 0,
     title: '',
     weight: 0,
+    categories: [],
   };
 
   const handleSubmitForm: ChangeItemFormikConfig['onSubmit'] = (values) => {
