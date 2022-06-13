@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 import {
-  Box, Container, TextField, Paper, Button, Typography,
+  Box, Container, TextField, Paper, Button, Typography, MenuItem,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { useRootDispatch } from 'store/hooks';
 import { createItemsNewItemAction } from 'store/action-creators';
 import SectionTitle from 'components/sectiontitle';
-import { CreateItem } from 'types';
+import { Category, CreateItem } from 'types';
+import axios from 'axios';
 import pause from '../../../helpers/pause';
 
 type CreateNewItemFormikConfig = FormikConfig<CreateItem>;
@@ -50,6 +51,15 @@ const AdminCreateNewItemPage: React.FC = () => {
     pause(2000);
     navigate('/admin');
   };
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  useEffect(() => {
+    axios.get<Category[]>('http://localhost:8000/categories')
+      .then(({ data }) => setCategories(data))
+      .catch(console.error);
+  }, []);
+
+  console.log(categories);
 
   const {
     values,
@@ -160,6 +170,22 @@ const AdminCreateNewItemPage: React.FC = () => {
             value={values.img}
             onChange={handleChange}
           />
+          <TextField
+            select
+            name="categories"
+            id="categories"
+            variant="outlined"
+            label="Kategorijos"
+          // SelectProps={{
+          //   multiple: true,
+          // value: { categories },
+          // onChange: handleFieldChange
+          // }}
+          >
+            {categories.map((cat) => (
+              <MenuItem key={cat.id}>{cat.title}</MenuItem>
+            ))}
+          </TextField>
         </Box>
         <Button
           variant="contained"
