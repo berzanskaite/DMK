@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Category } from 'types';
 import {
   FormControl, InputLabel, MenuItem, Select, SelectChangeEvent,
 } from '@mui/material';
+import axios from 'axios';
 
 const ChangeCategorySelect = (props: { onChange: (value: string) => void }) => {
   const { onChange } = props;
   const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState<Category[]>([]);
+  useEffect(() => {
+    axios.get<Category[]>('http://localhost:8000/categories')
+      .then(({ data }) => setCategories(data))
+      .catch(console.error);
+  }, []);
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value);
     onChange(event.target.value);
@@ -19,12 +27,10 @@ const ChangeCategorySelect = (props: { onChange: (value: string) => void }) => {
         label="category"
         onChange={handleChange}
       >
-        <MenuItem value="">---</MenuItem>
-        <MenuItem value="cat1">Mieliniai kepiniai</MenuItem>
-        <MenuItem value="cat2">Pyragai</MenuItem>
-        <MenuItem value="cat3">Duonos</MenuItem>
-        <MenuItem value="cat4">Bandelės</MenuItem>
-        <MenuItem value="cat5">Kepiniai su raugu</MenuItem>
+        <MenuItem value="">Visos kategorijos</MenuItem>
+        {categories.map((cat) => (
+          <MenuItem key={cat.id} value={cat.id}>{cat.title}</MenuItem>
+        ))}
       </Select>
     </FormControl>
   );
