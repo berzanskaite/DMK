@@ -76,9 +76,3 @@ const AdminPage: React.FC = () => {
 };
 
 export default AdminPage;
-
-/*
-i temcard mapinime reikes iterpti filtravima
-jeigu nepasirenku jokios kategorijos, rodyti visus,
-jeigu pasirenku kateogrija, rodyti vienos kategorijos item
-*/
