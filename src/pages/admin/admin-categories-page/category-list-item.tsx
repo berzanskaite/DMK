@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  Avatar,
-  Box, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, Typography,
+  Grid,
+  IconButton,
+  TextField,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,27 +11,31 @@ import { Category } from 'types';
 
 type CategoryListItemProps = Category & {
   deleteCategory: (categoryId: string) => void,
+  updateCategory: (categoryId: string) => void,
 };
 
 const CategoryListItem: React.FC<CategoryListItemProps> = ({
-  id, title, deleteCategory,
+  id, title, deleteCategory, updateCategory,
 }) => (
-  <List>
-    <ListItem
-      secondaryAction={(
-        <IconButton edge="end" aria-label="delete" onClick={() => deleteCategory(id)}>
-          <DeleteIcon />
-        </IconButton>
-      )}
-    >
-      <ListItemAvatar>
-        <FolderIcon sx={{ height: '28px', color: 'bakery.dark' }} />
-      </ListItemAvatar>
-      <ListItemText
-        primary={title}
-      />
-    </ListItem>
-  </List>
+  <Grid container columnSpacing={2} sx={{ textAlign: 'center' }}>
+    <Grid item sx={{ display: 'flex', mb: 1 }}>
+      <FolderIcon sx={{ color: 'bakery.main' }} />
+    </Grid>
+    <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+      <TextField size="small" defaultValue={title} />
+    </Grid>
+    <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+      <IconButton size="small" onClick={() => updateCategory(id)}>
+        <EditIcon />
+      </IconButton>
+    </Grid>
+    <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+      <IconButton size="small" onClick={() => deleteCategory(id)}>
+        <DeleteIcon fontSize="small" />
+      </IconButton>
+    </Grid>
+  </Grid>
+
 );
 
 export default CategoryListItem;

@@ -10,7 +10,12 @@ import { selectCategories, selectCategoriesLoading } from 'store/selectors';
 import { CreateCategory } from 'types';
 import * as Yup from 'yup';
 import { useRootDispatch } from '../../../store/hooks';
-import { categoriesFetchCategoriesAction, createCategoriesCreateNewCategoryAction, createCategoriesDeleteCategoryAction } from '../../../store/features/categories/action-creators';
+import {
+  categoriesFetchCategoriesAction,
+  createCategoriesCreateNewCategoryAction,
+  createCategoriesDeleteCategoryAction,
+  createCategoriesUpdateCategoryAction,
+} from '../../../store/features/categories/action-creators';
 import CategoryListItem from './category-list-item';
 
 type CreateCategoryFormikConfig = FormikConfig<CreateCategory>;
@@ -64,6 +69,8 @@ const CategoriesPage: React.FC = () => {
               key={categoryProps.id}
               {...categoryProps}
               deleteCategory={() => dispatch(createCategoriesDeleteCategoryAction(categoryProps.id))}
+              updateCategory={() => { }}
+            // updateCategory={() => dispatch(createCategoriesUpdateCategoryAction(values))}
             />
           ))}
         </Container>
