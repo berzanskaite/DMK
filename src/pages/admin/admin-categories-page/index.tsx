@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import SectionTitle from 'components/sectiontitle';
 import { useRootSelector } from 'store';
 import { selectCategories, selectCategoriesLoading } from 'store/selectors';
@@ -34,14 +34,18 @@ const CategoriesPage: React.FC = () => {
         </Container>
       );
     } else if (categories.length === 0) {
-      content = <Typography>Kategoriju nera</Typography>;
+      content = <Typography>Kategorijų nera</Typography>;
     }
   }
 
   return (
-    <Container sx={{ mb: 5, height: '100vh' }}>
+    <Container sx={{
+      display: 'flex', flexDirection: 'column', mb: 5, height: '100vh',
+    }}
+    >
       <SectionTitle title="Kategorijos" description="Kategorijų tvarkymo puslapis" />
       {content}
+      <Button href="/admin">Grįžti į administratoriaus puslapį</Button>
     </Container>
   );
 };
