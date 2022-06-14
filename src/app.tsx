@@ -6,6 +6,7 @@ import { selectAuthLoading, selectAuthLoggedIn, selectAuthToken } from 'store/se
 import { createAuthenticateActionThunk } from 'store/action-creators';
 
 import AdminCreateNewItemPage from 'pages/admin/admin-create-new-item-page';
+import CategoriesPage from 'pages/admin/admin-categories-page';
 import HomePage from './pages/home-page';
 
 import LoginPage from './pages/login-page';
@@ -37,6 +38,7 @@ const App: React.FC = () => {
         <Route path="/admin" element={<RequireAuth><AdminPage /></RequireAuth>} />
         <Route path="/admin/change-item/:id" element={<RequireAuth><AdminChangeItemPage /></RequireAuth>} />
         <Route path="/admin/create-new-item" element={<RequireAuth><AdminCreateNewItemPage /></RequireAuth>} />
+        <Route path="/admin/categories" element={<RequireAuth><CategoriesPage /></RequireAuth>} />
       </Route>
     </Routes>
   );

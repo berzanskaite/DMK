@@ -68,6 +68,7 @@ const AdminPage: React.FC = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button onClick={() => navigate('/admin/create-new-item')} variant="contained" sx={{ ml: 2 }}>Sukurti naują produktą</Button>
         <ChangeCategorySelect onChange={(value) => { setFilter(value); }} />
+        <Button onClick={() => navigate('/admin/categories')} variant="contained" sx={{ ml: 2 }}>Tvarkyti kategorijas</Button>
       </Box>
       {content}
     </Container>
