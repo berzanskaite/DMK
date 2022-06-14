@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFormik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 import {
-  Box, Container, TextField, Paper, Button, Typography, MenuItem,
+  Box, Container, TextField, Paper, Button, MenuItem, SelectChangeEvent, Select,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
@@ -52,14 +52,21 @@ const AdminCreateNewItemPage: React.FC = () => {
     navigate('/admin');
   };
 
+  const [selected, setSelected] = useState<string[]>([]);
+
+  const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event;
+    setSelected(typeof value === 'string' ? value.split(',') : value);
+  };
+
   const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
     axios.get<Category[]>('http://localhost:8000/categories')
       .then(({ data }) => setCategories(data))
       .catch(console.error);
   }, []);
-
-  console.log(categories);
 
   const {
     values,
@@ -170,22 +177,16 @@ const AdminCreateNewItemPage: React.FC = () => {
             value={values.img}
             onChange={handleChange}
           />
-          <TextField
-            select
+          <Select
             name="categories"
-            id="categories"
-            variant="outlined"
-            label="Kategorijos"
-          // SelectProps={{
-          //   multiple: true,
-          // value: { categories },
-          // onChange: handleFieldChange
-          // }}
+            multiple
+            value={selected}
+            onChange={handleSelectChange}
           >
             {categories.map((cat) => (
-              <MenuItem key={cat.id}>{cat.title}</MenuItem>
+              <MenuItem key={cat.id} value={cat.id}>{cat.title}</MenuItem>
             ))}
-          </TextField>
+          </Select>
         </Box>
         <Button
           variant="contained"

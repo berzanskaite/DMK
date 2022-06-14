@@ -1,20 +1,21 @@
 import { Dispatch } from 'redux';
-import { User, Credentials } from 'types';
-import AuthService, { AuthPromise } from './auth-service';
+import { Credentials } from 'types';
+import { AppAction } from '../../types';
 import {
   AuthSuccessAction,
   AuthFailureAction,
   AuthLoadingAction,
   AuthLogoutAction,
   AuthClearErrorAction,
-} from './types';
+} from './auth-types';
+import AuthService, { AuthResponseBody } from '../../../services/auth-service';
 import {
   createNavigationSetRedirectAction,
   navigationClearRedirectAction,
 } from '../navigation/navigation-action-creators';
-import { AppAction } from '../../types';
+import pause from '../../../helpers/pause';
 
-export const authLoadingAction: AuthLoadingAction = {
+const authLoadingAction: AuthLoadingAction = {
   type: 'AUTH_LOADING',
 };
 
@@ -26,26 +27,25 @@ export const authLogoutAction: AuthLogoutAction = {
   type: 'AUTH_LOGOUT',
 };
 
-export const createAuthSuccessAction = (user: User): AuthSuccessAction => ({
+const createAuthSuccessAction = (authResponseBody: AuthResponseBody): AuthSuccessAction => ({
   type: 'AUTH_SUCCESS',
-  payload: { user },
+  payload: authResponseBody,
 });
 
-export const createAuthFailureAction = (error: string): AuthFailureAction => ({
+const createAuthFailureAction = (error: string): AuthFailureAction => ({
   type: 'AUTH_FAILURE',
   payload: { error },
 });
 
 const authenticate = async (
   dispatch: Dispatch<AppAction>,
-  authCallback: AuthPromise,
-  authCallbackArgs: Parameters<AuthPromise>,
+  authCallback: () => Promise<AuthResponseBody>,
   redirect: string,
 ) => {
   dispatch(authLoadingAction);
   try {
-    const user = await authCallback(...authCallbackArgs);
-    const authSuccessAction = createAuthSuccessAction(user);
+    const authResponseBody = await authCallback();
+    const authSuccessAction = createAuthSuccessAction(authResponseBody);
     const navigationSetRedirectAction = createNavigationSetRedirectAction(redirect);
     dispatch(navigationSetRedirectAction);
     dispatch(authSuccessAction);
@@ -57,9 +57,15 @@ const authenticate = async (
   }
 };
 
-export const createLoginAction = (
+export const createAuthenticateActionThunk = (token: string, redirect: string) => async (
+  dispatch: Dispatch<AppAction>,
+): Promise<void> => {
+  await authenticate(dispatch, async () => AuthService.authenticate(token), redirect);
+};
+
+export const createLoginActionThunk = (
   credentials: Credentials,
   redirect: string,
 ) => async (dispatch: Dispatch<AppAction>): Promise<void> => {
-  await authenticate(dispatch, AuthService.login, [credentials], redirect);
+  await authenticate(dispatch, async () => AuthService.login(credentials), redirect);
 };

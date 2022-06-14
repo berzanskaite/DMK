@@ -7,7 +7,7 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import { useLocation } from 'react-router-dom';
 import { authLogoutAction } from 'store/action-creators';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
-import { selectLoggedIn } from 'store/selectors';
+import { selectAuthLoggedIn } from 'store/selectors';
 import DrawerComp from 'components/drawer';
 import NavbarScrollLink from './navbar-scroll-link';
 import NavbarLink from './navbar-link';
@@ -15,7 +15,7 @@ import NavbarLink from './navbar-link';
 const Navbar: React.FC = () => {
   const location = useLocation();
   const dispatch = useRootDispatch();
-  const loggedIn = useRootSelector(selectLoggedIn);
+  const loggedIn = useRootSelector(selectAuthLoggedIn);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));

@@ -78,7 +78,7 @@
       ]
     }
   ],
-  "users": [
+  "admins": [
     {
       "id": "admin1",
       "email": "admin@dmk.lt",

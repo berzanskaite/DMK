@@ -1,6 +1,6 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { ItemsAction, ItemsState } from './features/items/types';
-import { AuthAction, AuthState } from './features/auth/types';
+import { AuthAction, AuthState } from './features/auth/auth-types';
 import { NavigationAction, NavigationState } from './features/navigation/types';
 
 export type RootState = {

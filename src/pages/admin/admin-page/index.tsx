@@ -8,7 +8,7 @@ import ItemsContainer from 'components/itemscontainer';
 import ItemCard from 'components/itemcard';
 import SectionTitle from 'components/sectiontitle';
 import { useRootSelector } from 'store';
-import { selectUser, selectItems, selectItemsLoading } from 'store/selectors';
+import { selectAdmin, selectItems, selectItemsLoading } from 'store/selectors';
 import { useRootDispatch } from 'store/hooks';
 import {
   itemsFetchItemsAction,
@@ -17,7 +17,7 @@ import {
 import ChangeCategorySelect from './change-category-select';
 
 const AdminPage: React.FC = () => {
-  const user = useRootSelector(selectUser);
+  const admin = useRootSelector(selectAdmin);
   const items = useRootSelector(selectItems);
   const itemsLoading = useRootSelector(selectItemsLoading);
   const dispatch = useRootDispatch();
@@ -64,7 +64,7 @@ const AdminPage: React.FC = () => {
   }
   return (
     <Container sx={{ my: 5, textAlign: 'center' }}>
-      <SectionTitle title="Admin Page" description={`Labas, ${user?.email}!`} />
+      <SectionTitle title="Admin Page" description={`Labas, ${admin?.email}!`} />
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button onClick={() => navigate('/admin/create-new-item')} variant="contained" sx={{ ml: 2 }}>Sukurti naują produktą</Button>
         <ChangeCategorySelect onChange={(value) => { setFilter(value); }} />

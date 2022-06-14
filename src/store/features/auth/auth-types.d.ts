@@ -1,23 +1,10 @@
-import { User } from '../../../types';
+import { Admin } from '../../../types';
 
 export type AuthState = {
-  user: User | null,
+  token: string | null,
+  admin: Admin | null,
   error: string | null,
   loading: boolean,
-};
-
-export type AuthSuccessAction = {
-  type: 'AUTH_SUCCESS',
-  payload: {
-    user: User,
-  }
-};
-
-export type AuthFailureAction = {
-  type: 'AUTH_FAILURE',
-  payload: {
-    error: string,
-  }
 };
 
 export type AuthLoadingAction = {
@@ -30,6 +17,21 @@ export type AuthLogoutAction = {
 
 export type AuthClearErrorAction = {
   type: 'AUTH_CLEAR_ERROR',
+};
+
+export type AuthSuccessAction = {
+  type: 'AUTH_SUCCESS',
+  payload: {
+    admin: Admin,
+    token: string,
+  }
+};
+
+export type AuthFailureAction = {
+  type: 'AUTH_FAILURE',
+  payload: {
+    error: string,
+  }
 };
 
 export type AuthAction = AuthSuccessAction | AuthFailureAction | AuthLoadingAction | AuthLogoutAction | AuthClearErrorAction;

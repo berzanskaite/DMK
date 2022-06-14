@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import ItemsService from 'services/items-api-service';
+import ItemsService from 'services/items-service';
 import { Item, CreateItem } from 'types';
 import pause from 'helpers/pause';
 import { AppAction } from '../../types';

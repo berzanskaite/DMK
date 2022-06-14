@@ -1,41 +1,59 @@
 /* eslint-disable @typescript-eslint/default-param-last */
 import { Reducer } from 'redux';
-import { AuthState, AuthAction } from './types';
+import { AuthState, AuthAction } from './auth-types';
 
 import { getLocalStorageItem, setLocalStorageItem } from '../../../helpers/local-storage-helpers';
 
-const USER_KEY_IN_LOCAL_STORAGE = process.env.REACT_APP_USER_KEY_IN_LOCAL_STORAGE as string;
+const { REACT_APP_AUTH_TOKEN_IN_LOCAL_STORAGE } = process.env;
+
+if (REACT_APP_AUTH_TOKEN_IN_LOCAL_STORAGE === undefined) {
+  throw new Error('Please define REACT_APP_AUTH_TOKEN_IN_LOCAL_STORAGE in /.env.local');
+}
 
 const initialState: AuthState = {
-  user: getLocalStorageItem(USER_KEY_IN_LOCAL_STORAGE),
+  token: getLocalStorageItem(REACT_APP_AUTH_TOKEN_IN_LOCAL_STORAGE),
+  admin: null,
   error: null,
   loading: false,
 };
 
 const authReducer: Reducer<AuthState, AuthAction> = (state = initialState, action) => {
   switch (action.type) {
-    case 'AUTH_SUCCESS': {
-      setLocalStorageItem(USER_KEY_IN_LOCAL_STORAGE, action.payload.user);
+    case 'AUTH_LOADING': {
       return {
         ...state,
-        user: action.payload.user,
+        error: null,
+        loading: true,
+      };
+    }
+
+    case 'AUTH_SUCCESS': {
+      setLocalStorageItem(REACT_APP_AUTH_TOKEN_IN_LOCAL_STORAGE, action.payload.token);
+      return {
+        ...state,
+        admin: action.payload.admin,
+        token: action.payload.token,
         loading: false,
       };
     }
 
     case 'AUTH_FAILURE': {
+      localStorage.removeItem(REACT_APP_AUTH_TOKEN_IN_LOCAL_STORAGE);
       return {
         ...state,
         error: action.payload.error,
+        admin: null,
+        token: null,
         loading: false,
       };
     }
 
     case 'AUTH_LOGOUT': {
-      localStorage.removeItem(USER_KEY_IN_LOCAL_STORAGE);
+      localStorage.removeItem(REACT_APP_AUTH_TOKEN_IN_LOCAL_STORAGE);
       return {
         ...state,
-        user: null,
+        admin: null,
+        token: null,
       };
     }
 
@@ -43,14 +61,6 @@ const authReducer: Reducer<AuthState, AuthAction> = (state = initialState, actio
       return {
         ...state,
         error: null,
-      };
-    }
-
-    case 'AUTH_LOADING': {
-      return {
-        ...state,
-        error: null,
-        loading: true,
       };
     }
 
