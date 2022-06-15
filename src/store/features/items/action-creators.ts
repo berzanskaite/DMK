@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import ItemsService from 'services/items-service';
 import { Item, CreateItem } from 'types';
 import pause from 'helpers/pause';
-import { AppAction } from '../../types';
+import { AppAction, RootState } from '../../types';
 import {
   ItemsFetchItemsLoadingAction,
   ItemsFetchItemsSuccessAction,
@@ -28,14 +28,33 @@ export const itemsFetchItemsAction = async (dispatch: Dispatch<AppAction>): Prom
   dispatch(itemsFetchItemsSuccessAction);
 };
 
-const itemsUpdateItemAction = (item: Item): ItemsUpdateItemAction => ({
-  type: 'ITEMS_UPDATE_ITEM',
+const itemsCreateNewItemAction = (item: CreateItem): ItemsCreateNewItemAction => ({
+  type: 'ITEMS_CREATE_NEW_ITEM',
   payload: { item },
 });
 
-export const createItemsUpdateItemAction = (item: Item) => async (dispatch: Dispatch<AppAction>) => {
-  await ItemsService.changeItem(item);
-  dispatch(itemsUpdateItemAction(item));
+export const createItemsNewItemAction = (item: CreateItem) => async (
+  dispatch: Dispatch<AppAction>,
+  getState: () => RootState,
+): Promise<void> => {
+  const { token } = getState().auth;
+  if (token === null) {
+    throw new Error('Prašome prisijungti');
+  }
+  await ItemsService.createNewItem(item, token);
+  itemsFetchItemsAction(dispatch);
+};
+
+export const createItemsUpdateItemAction = (item: Item) => async (
+  dispatch: Dispatch<AppAction>,
+  getState: () => RootState,
+) => {
+  const { token } = getState().auth;
+  if (token === null) {
+    throw new Error('Prašome prisijungti');
+  }
+  await ItemsService.changeItem(item, token);
+  itemsFetchItemsAction(dispatch);
 };
 
 const itemsDeleteItemAction = (id: string): ItemsDeleteItemAction => ({
@@ -43,17 +62,14 @@ const itemsDeleteItemAction = (id: string): ItemsDeleteItemAction => ({
   payload: { id },
 });
 
-export const createItemsDeleteItemAction = (id: string) => async (dispatch: Dispatch<AppAction>) => {
-  await ItemsService.deleteItem(id);
+export const createItemsDeleteItemAction = (id: string) => async (
+  dispatch: Dispatch<AppAction>,
+  getState: () => RootState,
+) => {
+  const { token } = getState().auth;
+  if (token === null) {
+    throw new Error('Prašome prisijungti');
+  }
+  await ItemsService.deleteItem(id, token);
   dispatch(itemsDeleteItemAction(id));
-};
-
-const itemsCreateNewItemAction = (item: CreateItem): ItemsCreateNewItemAction => ({
-  type: 'ITEMS_CREATE_NEW_ITEM',
-  payload: { item },
-});
-
-export const createItemsNewItemAction = (item: CreateItem) => async (dispatch: Dispatch<AppAction>): Promise<void> => {
-  await ItemsService.createNewItem(item);
-  dispatch(itemsCreateNewItemAction(item));
 };

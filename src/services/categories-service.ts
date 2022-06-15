@@ -1,9 +1,9 @@
 import { CreateCategory, Category } from 'types';
-import ApiService from './api-service';
+import ApiService from './api-service-new';
 
 const fetchCategories = async (): Promise<Category[]> => {
-  const { data } = await ApiService.get<Category[]>('/categories');
-  return data;
+  const { data } = await ApiService.get<{ categories: Category[] }>('/api/categories');
+  return data.categories;
 };
 
 const deleteCategory = async (id: string) => {

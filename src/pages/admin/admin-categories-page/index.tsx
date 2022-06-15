@@ -27,6 +27,7 @@ const validationSchema = Yup.object({
 
 const CategoriesPage: React.FC = () => {
   const categories = useRootSelector(selectCategories);
+  // const category = useRootSelector(selectCategoryById(id))
   const categoriesLoading = useRootSelector(selectCategoriesLoading);
   const dispatch = useRootDispatch();
 
@@ -76,7 +77,7 @@ const CategoriesPage: React.FC = () => {
         </Container>
       );
     } else if (categories.length === 0) {
-      content = <Typography>Kategorijų nera</Typography>;
+      content = <Typography>Kategorijų nėra</Typography>;
     }
   }
 

@@ -25,27 +25,6 @@ const itemsReducer: Reducer<ItemsState, ItemsAction> = (state = initialState, ac
       };
     }
 
-    case 'ITEMS_CREATE_NEW_ITEM':
-      return {
-        ...state,
-        items: [
-          ...state.items,
-          {
-            ...action.payload.item,
-            id: createId(),
-          },
-        ],
-      };
-
-    case 'ITEMS_UPDATE_ITEM': {
-      const index = state.items.findIndex((item) => item.id === action.payload.item.id);
-      const newItems = [...state.items];
-      newItems[index] = action.payload.item;
-      return {
-        ...state,
-        items: newItems,
-      };
-    }
     case 'ITEMS_DELETE_ITEM':
       return {
         ...state,

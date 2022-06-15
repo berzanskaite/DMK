@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { CreateCategory, Category } from 'types';
 import pause from 'helpers/pause';
-import CategoriesService from 'services/categories-api-service';
+import CategoriesService from 'services/categories-service';
 import { AppAction } from '../../types';
 import {
   CategoriesFetchCategoriesLoadingAction,

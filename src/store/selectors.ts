@@ -13,10 +13,11 @@ export const selectRedirect = (state: RootState) => state.navigation.redirect;
 // items selectors
 export const selectItems = (state: RootState) => state.items.items;
 export const selectItemsLoading = (state: RootState) => state.items.loading;
+export const selectItemById = (id?: string) => (state: RootState) => (id ? state
+  .items.items.find((item) => id === item.id) : undefined);
 
 // categories selectors
 export const selectCategories = (state: RootState) => state.categories.categories;
 export const selectCategoriesLoading = (state: RootState) => state.categories.loading;
-
-export const selectItemById = (id?: string) => (state: RootState) => (id ? state
-  .items.items.find((item) => id === item.id) : undefined);
+export const selectCategoryById = (id?: string) => (state: RootState) => (id ? state
+  .categories.categories.find((cat) => id === cat.id) : undefined);
