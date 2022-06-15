@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { CreateCategory, Category } from 'types';
 import pause from 'helpers/pause';
 import CategoriesService from 'services/categories-service';
-import { AppAction } from '../../types';
+import { AppAction, RootState } from '../../types';
 import {
   CategoriesFetchCategoriesLoadingAction,
   CategoriesFetchCategoriesSuccessAction,
@@ -23,7 +23,7 @@ const createCategoriesFetchCategoriesSuccessAction = (categories: Category[]): C
 export const categoriesFetchCategoriesAction = async (dispatch: Dispatch<AppAction>): Promise<void> => {
   dispatch(categoriesFetchCategoriesLoadingAction);
   const categories = await CategoriesService.fetchCategories();
-  await pause(2000);
+  // await pause(2000);
   const categoriesFetchCategoriesSuccessAction = createCategoriesFetchCategoriesSuccessAction(categories);
   dispatch(categoriesFetchCategoriesSuccessAction);
 };
@@ -33,19 +33,28 @@ const categoriesUpdateCategoryAction = (category: Category): CategoriesUpdateCat
   payload: { category },
 });
 
-export const createCategoriesUpdateCategoryAction = (category: Category) => async (dispatch: Dispatch<AppAction>) => {
-  await CategoriesService.changeCategory(category);
-  dispatch(categoriesUpdateCategoryAction(category));
+export const createCategoriesUpdateCategoryAction = (category: Category) => async (
+  dispatch: Dispatch<AppAction>,
+  getState: () => RootState,
+) => {
+  const { token } = getState().auth;
+  if (token === null) {
+    throw new Error('Prašome prisijungti');
+  }
+  await CategoriesService.changeCategory(category, token);
+  categoriesFetchCategoriesAction(dispatch);
 };
 
-const categoriesDeleteCategoryAction = (id: string): CategoriesDeleteCategoryAction => ({
-  type: 'CATEGORIES_DELETE_CATEGORY',
-  payload: { id },
-});
-
-export const createCategoriesDeleteCategoryAction = (id: string) => async (dispatch: Dispatch<AppAction>) => {
-  await CategoriesService.deleteCategory(id);
-  dispatch(categoriesDeleteCategoryAction(id));
+export const createCategoriesDeleteCategoryAction = (id: string) => async (
+  dispatch: Dispatch<AppAction>,
+  getState: () => RootState,
+) => {
+  const { token } = getState().auth;
+  if (token === null) {
+    throw new Error('Prašome prisijungti');
+  }
+  await CategoriesService.deleteCategory(id, token);
+  categoriesFetchCategoriesAction(dispatch);
 };
 
 const categoriesCreateNewCategoryAction = (category: CreateCategory): CategoriesCreateNewCategoryAction => ({
@@ -53,7 +62,14 @@ const categoriesCreateNewCategoryAction = (category: CreateCategory): Categories
   payload: { category },
 });
 
-export const createCategoriesCreateNewCategoryAction = (category: CreateCategory) => async (dispatch: Dispatch<AppAction>): Promise<void> => {
-  await CategoriesService.createNewCategory(category);
-  dispatch(categoriesCreateNewCategoryAction(category));
+export const createCategoriesCreateNewCategoryAction = (category: CreateCategory) => async (
+  dispatch: Dispatch<AppAction>,
+  getState: () => RootState,
+): Promise<void> => {
+  const { token } = getState().auth;
+  if (token === null) {
+    throw new Error('Prašome prisijungti');
+  }
+  await CategoriesService.createNewCategory(category, token);
+  categoriesFetchCategoriesAction(dispatch);
 };

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/default-param-last */
 import { Reducer } from 'redux';
-import { v4 as createId } from 'uuid';
 import { ItemsState, ItemsAction } from './types';
 
 const initialState: ItemsState = {
@@ -25,11 +24,6 @@ const itemsReducer: Reducer<ItemsState, ItemsAction> = (state = initialState, ac
       };
     }
 
-    case 'ITEMS_DELETE_ITEM':
-      return {
-        ...state,
-        items: state.items.filter((item) => item.id !== action.payload.id),
-      };
     default:
       return state;
   }

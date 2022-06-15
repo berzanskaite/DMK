@@ -28,11 +28,6 @@ export const itemsFetchItemsAction = async (dispatch: Dispatch<AppAction>): Prom
   dispatch(itemsFetchItemsSuccessAction);
 };
 
-const itemsCreateNewItemAction = (item: CreateItem): ItemsCreateNewItemAction => ({
-  type: 'ITEMS_CREATE_NEW_ITEM',
-  payload: { item },
-});
-
 export const createItemsNewItemAction = (item: CreateItem) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
@@ -57,11 +52,6 @@ export const createItemsUpdateItemAction = (item: Item) => async (
   itemsFetchItemsAction(dispatch);
 };
 
-const itemsDeleteItemAction = (id: string): ItemsDeleteItemAction => ({
-  type: 'ITEMS_DELETE_ITEM',
-  payload: { id },
-});
-
 export const createItemsDeleteItemAction = (id: string) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
@@ -71,5 +61,5 @@ export const createItemsDeleteItemAction = (id: string) => async (
     throw new Error('Prašome prisijungti');
   }
   await ItemsService.deleteItem(id, token);
-  dispatch(itemsDeleteItemAction(id));
+  itemsFetchItemsAction(dispatch);
 };
