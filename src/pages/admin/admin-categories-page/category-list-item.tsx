@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Grid,
   IconButton,
@@ -11,31 +11,38 @@ import { Category } from 'types';
 
 type CategoryListItemProps = Category & {
   deleteCategory: (categoryId: string) => void,
-  updateCategory: (categoryId: string) => void,
+  updateCategory: (categoryId: string, title: string) => void,
 };
 
 const CategoryListItem: React.FC<CategoryListItemProps> = ({
   id, title, deleteCategory, updateCategory,
-}) => (
-  <Grid container columnSpacing={2} sx={{ textAlign: 'center' }}>
-    <Grid item sx={{ display: 'flex', mb: 1 }}>
-      <FolderIcon sx={{ color: 'bakery.main' }} />
-    </Grid>
-    <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-      <TextField size="small" defaultValue={title} />
-    </Grid>
-    <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-      <IconButton size="small" onClick={() => updateCategory(id)}>
-        <EditIcon />
-      </IconButton>
-    </Grid>
-    <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
-      <IconButton size="small" onClick={() => deleteCategory(id)}>
-        <DeleteIcon fontSize="small" />
-      </IconButton>
-    </Grid>
-  </Grid>
+}) => {
+  const [value, setValue] = useState(title);
 
-);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
 
+  return (
+    <Grid container columnSpacing={2} sx={{ textAlign: 'center' }}>
+      <Grid item sx={{ display: 'flex', mb: 1 }}>
+        <FolderIcon sx={{ color: 'bakery.main' }} />
+      </Grid>
+      <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+        <TextField size="small" value={value} onChange={handleChange} />
+      </Grid>
+      <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+        <IconButton size="small" onClick={() => updateCategory(id, value)}>
+          <EditIcon />
+        </IconButton>
+      </Grid>
+      <Grid item sx={{ display: 'flex', alignItems: 'center' }}>
+        <IconButton size="small" onClick={() => deleteCategory(id)}>
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+      </Grid>
+    </Grid>
+
+  );
+};
 export default CategoryListItem;

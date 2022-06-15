@@ -70,8 +70,11 @@ const CategoriesPage: React.FC = () => {
               key={categoryProps.id}
               {...categoryProps}
               deleteCategory={() => dispatch(createCategoriesDeleteCategoryAction(categoryProps.id))}
-              updateCategory={() => { }}
-            // updateCategory={() => dispatch(createCategoriesUpdateCategoryAction(values))}
+              updateCategory={(id, title) => {
+                dispatch(createCategoriesUpdateCategoryAction({ id, title }));
+                console.log(title);
+              }}
+            // updateCategory={() => dispatch(createCategoriesUpdateCategoryAction())}
             />
           ))}
         </Container>
@@ -132,11 +135,8 @@ export default CategoriesPage;
 
 /*
 Liko padaryti:
-kad kategorijos issitrintu is saraso, ne tik is duombazes
-kad kategorija atsirastu sarase, ne tik duombazej
-kategoriju redagavimas
 
-kad sudejus kategorijas i createNewItem, jos isirasytu i duombaze(su Irma)
 padaryti kategoriju redagavima changeItem formoje
+padaryti,kad nebutu galima redaguoti kategorijos i tuscia pavadinima
 
 */

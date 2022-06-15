@@ -6,11 +6,11 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
-import { useRootDispatch } from 'store/hooks';
-import { createItemsNewItemAction } from 'store/action-creators';
+import { useRootDispatch, useRootSelector } from 'store/hooks';
+import { categoriesFetchCategoriesAction, createItemsNewItemAction } from 'store/action-creators';
 import SectionTitle from 'components/sectiontitle';
-import { Category, CreateItem } from 'types';
-import axios from 'axios';
+import { CreateItem } from 'types';
+import { selectCategories } from 'store/selectors';
 import pause from '../../../helpers/pause';
 
 type CreateNewItemFormikConfig = FormikConfig<CreateItem>;
@@ -35,6 +35,9 @@ const validationSchema = Yup.object({
 const AdminCreateNewItemPage: React.FC = () => {
   const dispatch = useRootDispatch();
   const navigate = useNavigate();
+  const categories = useRootSelector(selectCategories);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
   const initialValues = {
     composition: '',
     description: '',
@@ -46,26 +49,21 @@ const AdminCreateNewItemPage: React.FC = () => {
   };
 
   const handleSubmitForm: CreateNewItemFormikConfig['onSubmit'] = (item) => {
-    const createAction = createItemsNewItemAction(item);
+    const createAction = createItemsNewItemAction({ ...item, categories: selectedCategories });
     dispatch(createAction);
     pause(2000);
     navigate('/admin');
   };
 
-  const [selected, setSelected] = useState<string[]>([]);
-
   const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
     const {
       target: { value },
     } = event;
-    setSelected(typeof value === 'string' ? value.split(',') : value);
+    setSelectedCategories(typeof value === 'string' ? value.split(',') : value);
   };
 
-  const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
-    axios.get<Category[]>('http://localhost:8000/categories')
-      .then(({ data }) => setCategories(data))
-      .catch(console.error);
+    dispatch(categoriesFetchCategoriesAction);
   }, []);
 
   const {
@@ -180,7 +178,7 @@ const AdminCreateNewItemPage: React.FC = () => {
           <Select
             name="categories"
             multiple
-            value={selected}
+            value={selectedCategories}
             onChange={handleSelectChange}
           >
             {categories.map((cat) => (
