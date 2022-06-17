@@ -72,9 +72,7 @@ const CategoriesPage: React.FC = () => {
               deleteCategory={() => dispatch(createCategoriesDeleteCategoryAction(categoryProps.id))}
               updateCategory={(id, title) => {
                 dispatch(createCategoriesUpdateCategoryAction({ id, title }));
-                console.log(title);
               }}
-            // updateCategory={() => dispatch(createCategoriesUpdateCategoryAction())}
             />
           ))}
         </Container>
@@ -122,7 +120,7 @@ const CategoriesPage: React.FC = () => {
           variant="contained"
           size="large"
           type="submit"
-          sx={{ width: '120px' }}
+          sx={{ width: '120px', backgroundColor: 'bakery.main' }}
         >
           Sukurti
         </Button>
@@ -132,11 +130,3 @@ const CategoriesPage: React.FC = () => {
   );
 };
 export default CategoriesPage;
-
-/*
-Liko padaryti:
-
-padaryti kategoriju redagavima changeItem formoje
-padaryti,kad nebutu galima redaguoti kategorijos i tuscia pavadinima
-
-*/

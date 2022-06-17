@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useFormik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 import {
-  Box, Container, TextField, Paper, Button, CircularProgress,
+  Box, Container, TextField, Paper, Button, CircularProgress, Select, MenuItem, SelectChangeEvent,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate, useParams } from 'react-router-dom';
 import SectionTitle from 'components/sectiontitle';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
-import { selectItemById, selectItemsLoading } from 'store/selectors';
-import { createItemsUpdateItemAction, itemsFetchItemsAction } from 'store/action-creators';
+import { selectCategories, selectItemById, selectItemsLoading } from 'store/selectors';
+import { categoriesFetchCategoriesAction, createItemsUpdateItemAction, itemsFetchItemsAction } from 'store/action-creators';
 import { Item } from 'types';
 import pause from 'helpers/pause';
 
@@ -35,12 +35,12 @@ const validationSchema = Yup.object({
 const AdminChangeItemPage: React.FC = () => {
   const { id } = useParams();
   const dispatch = useRootDispatch();
-
   const navigate = useNavigate();
 
   const loading = useRootSelector(selectItemsLoading);
   const item = useRootSelector(selectItemById(id));
-  const [hasPrefilled, setHasPrefilled] = useState(!!item);
+  const categories = useRootSelector(selectCategories);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const initialValues = item || {
     composition: '',
@@ -54,10 +54,17 @@ const AdminChangeItemPage: React.FC = () => {
   };
 
   const handleSubmitForm: ChangeItemFormikConfig['onSubmit'] = (values) => {
-    const changeAction = createItemsUpdateItemAction(values);
+    const changeAction = createItemsUpdateItemAction({ ...values, categories: selectedCategories });
     dispatch(changeAction);
     pause(2000);
     navigate('/admin');
+  };
+
+  const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedCategories(typeof value === 'string' ? value.split(',') : value);
   };
 
   const {
@@ -67,22 +74,25 @@ const AdminChangeItemPage: React.FC = () => {
     handleChange,
     handleBlur,
     handleSubmit,
-    setValues,
   } = useFormik<Item>({
     initialValues,
     onSubmit: handleSubmitForm,
     validationSchema,
   });
 
-  useEffect(() => {
-    if (!loading && !hasPrefilled) {
-      if (item) { setValues(item); }
-      setHasPrefilled(true);
-    }
-  }, [loading, item]);
+  // let newValues = values.categories;
+
+  // useEffect(() => {
+  //   newValues = values.categories.concat(selectedCategories);
+  //   console.log(newValues);
+  // }, [selectedCategories]);
 
   useEffect(() => {
     dispatch(itemsFetchItemsAction);
+  }, []);
+
+  useEffect(() => {
+    dispatch(categoriesFetchCategoriesAction);
   }, []);
 
   return (
@@ -188,13 +198,24 @@ const AdminChangeItemPage: React.FC = () => {
           <TextField
             name="img"
             type="text"
+            label="Nuotraukos url"
             fullWidth
             inputProps={{ autoComplete: 'off' }}
             value={values.img}
             onChange={handleChange}
             disabled={loading}
-
           />
+          <Select
+            name="categories"
+            multiple
+            // value={values.categories.concat(selectedCategories)}
+            value={values.categories}
+            onChange={handleSelectChange}
+          >
+            {categories.map((cat) => (
+              <MenuItem key={cat.id} value={cat.id}>{cat.title}</MenuItem>
+            ))}
+          </Select>
         </Box>
         <Button
           variant="contained"

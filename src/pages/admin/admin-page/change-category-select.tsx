@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Category } from 'types';
 import {
   FormControl, InputLabel, MenuItem, Select, SelectChangeEvent,
 } from '@mui/material';
-import axios from 'axios';
+import { selectCategories } from 'store/selectors';
+import { categoriesFetchCategoriesAction } from 'store/action-creators';
+import { useRootSelector, useRootDispatch } from '../../../store/hooks';
 
 const ChangeCategorySelect = (props: { onChange: (value: string) => void }) => {
   const { onChange } = props;
   const [category, setCategory] = useState('');
-  const [categories, setCategories] = useState<Category[]>([]);
+  const categories = useRootSelector(selectCategories);
+  const dispatch = useRootDispatch();
 
   useEffect(() => {
-    axios.get<Category[]>('http://localhost:8000/categories')
-      .then(({ data }) => setCategories(data))
-      .catch(console.error);
+    dispatch(categoriesFetchCategoriesAction);
   }, []);
 
   const handleChange = (event: SelectChangeEvent) => {

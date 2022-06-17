@@ -31,14 +31,7 @@ const createNewItem = async (item: CreateItem, token: string) => {
 const changeItem = async (item: Item, token: string) => {
   const { data } = await ApiService.patch<{ item: Item }>(
     `api/items/${item.id}`,
-    {
-      title: item.title,
-      description: item.description,
-      price: item.price,
-      weight: item.weight,
-      composition: item.composition,
-      img: item.img,
-    },
+    item,
     {
       headers: {
         Authorization: token,
