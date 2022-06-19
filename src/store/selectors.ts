@@ -15,6 +15,8 @@ export const selectItems = (state: RootState) => state.items.items;
 export const selectItemsLoading = (state: RootState) => state.items.loading;
 export const selectItemById = (id?: string) => (state: RootState) => (id ? state
   .items.items.find((item) => id === item.id) : undefined);
+export const selectItemCategoriesByItemId = (id?: string) => (state: RootState) => (id ? state
+  .items.items.find((item) => id === item.id)?.categories.map((cat) => cat.id) : undefined);
 
 // categories selectors
 export const selectCategories = (state: RootState) => state.categories.categories;

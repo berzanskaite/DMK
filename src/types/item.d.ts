@@ -6,7 +6,18 @@ export type Item = {
   weight: number,
   img: string,
   composition: string,
-  categories: string[]
+  categories:
+  {
+    id: string,
+    title: string
+  }[],
+
 };
 
-export type CreateItem = Omit<Item, 'id'>;
+export type CreateItem = Omit<Item, 'id' | 'categories'> & {
+  categories: string[];
+};
+
+export type ChangeItem = Omit<Item, 'categories'> & {
+  categories?: string[];
+};

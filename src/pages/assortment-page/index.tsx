@@ -40,7 +40,7 @@ const AssortmentPage: React.FC = () => {
     } else if (filter !== '') {
       content = (
         <ItemsContainer>
-          {items.filter((item) => item.categories.some((category) => category === filter)).map((itemProps) => (
+          {items.filter((item) => item.categories.some((category) => category.id === filter)).map((itemProps) => (
             <ItemCard
               key={itemProps.id}
               {...itemProps}

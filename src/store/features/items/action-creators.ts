@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import ItemsService from 'services/items-service';
-import { Item, CreateItem } from 'types';
+import { Item, CreateItem, ChangeItem } from 'types';
 import pause from 'helpers/pause';
 import { AppAction, RootState } from '../../types';
 import {
@@ -40,7 +40,7 @@ export const createItemsNewItemAction = (item: CreateItem) => async (
   itemsFetchItemsAction(dispatch);
 };
 
-export const createItemsUpdateItemAction = (item: Item) => async (
+export const createItemsUpdateItemActionThunk = (item: ChangeItem) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
 ) => {

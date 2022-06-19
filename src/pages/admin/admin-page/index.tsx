@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Box,
-  Button, CircularProgress, Container, Typography,
+  Box, Button, CircularProgress, Container, Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ItemsContainer from 'components/itemscontainer';
@@ -23,30 +22,11 @@ const AdminPage: React.FC = () => {
   const dispatch = useRootDispatch();
   const navigate = useNavigate();
 
-  // Bandymai
-  // const item1 = {
-  //   title: 'pirmasItem',
-  //   categories: ['1', '2'],
-  // };
-  // const item2 = {
-  //   title: 'antrasItem',
-  //   categories: ['2', '3'],
-  // };
-  // const item3 = {
-  //   title: 'treciasItem',
-  //   categories: ['3'],
-  // };
-  // const filtruotaCat = '3';
-  // const itemai = [item1, item2, item3];
-  // console.log(itemai.filter((item) => item.categories.some((category) => category === filtruotaCat)));
-  // Baigiasi bandymai
-
   useEffect(() => {
     dispatch(itemsFetchItemsAction);
   }, []);
 
   const [filter, setFilter] = useState<string>('');
-  console.log(items.filter((item) => item.categories.some((category) => category === filter)));
 
   let content = (
     <Container sx={{ my: 5, textAlign: 'center' }}><CircularProgress color="primary" size={60} /></Container>
@@ -70,7 +50,7 @@ const AdminPage: React.FC = () => {
     } else if (filter !== '') {
       content = (
         <ItemsContainer>
-          {items.filter((item) => item.categories.some((category) => category === filter)).map((itemProps) => (
+          {items.filter((item) => item.categories.some((category) => category.id === filter)).map((itemProps) => (
             <ItemCard
               key={itemProps.id}
               {...itemProps}

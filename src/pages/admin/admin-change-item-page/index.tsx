@@ -9,9 +9,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import SectionTitle from 'components/sectiontitle';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
 import { selectCategories, selectItemById, selectItemsLoading } from 'store/selectors';
-import { categoriesFetchCategoriesAction, createItemsUpdateItemAction, itemsFetchItemsAction } from 'store/action-creators';
+import {
+  categoriesFetchCategoriesAction,
+  createItemsUpdateItemActionThunk,
+  itemsFetchItemsAction,
+} from 'store/action-creators';
 import { Item } from 'types';
 import pause from 'helpers/pause';
+import { selectItemCategoriesByItemId } from '../../../store/selectors';
 
 type ChangeItemFormikConfig = FormikConfig<Item>;
 
@@ -39,8 +44,9 @@ const AdminChangeItemPage: React.FC = () => {
 
   const loading = useRootSelector(selectItemsLoading);
   const item = useRootSelector(selectItemById(id));
+  const itemCategories = useRootSelector(selectItemCategoriesByItemId(id));
   const categories = useRootSelector(selectCategories);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[] | undefined>(itemCategories);
 
   const initialValues = item || {
     composition: '',
@@ -54,17 +60,10 @@ const AdminChangeItemPage: React.FC = () => {
   };
 
   const handleSubmitForm: ChangeItemFormikConfig['onSubmit'] = (values) => {
-    const changeAction = createItemsUpdateItemAction({ ...values, categories: selectedCategories });
+    const changeAction = createItemsUpdateItemActionThunk({ ...values, categories: selectedCategories });
     dispatch(changeAction);
     pause(2000);
     navigate('/admin');
-  };
-
-  const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedCategories(typeof value === 'string' ? value.split(',') : value);
   };
 
   const {
@@ -80,12 +79,12 @@ const AdminChangeItemPage: React.FC = () => {
     validationSchema,
   });
 
-  // let newValues = values.categories;
-
-  // useEffect(() => {
-  //   newValues = values.categories.concat(selectedCategories);
-  //   console.log(newValues);
-  // }, [selectedCategories]);
+  const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedCategories(typeof value === 'string' ? value.split(',') : value);
+  };
 
   useEffect(() => {
     dispatch(itemsFetchItemsAction);
@@ -94,6 +93,12 @@ const AdminChangeItemPage: React.FC = () => {
   useEffect(() => {
     dispatch(categoriesFetchCategoriesAction);
   }, []);
+
+  // useEffect(() => {
+  //   if (id !== undefined && item === undefined) {
+  //     dispatch(createItemsFetchOneActionThunk(id));
+  //   }
+  // }, []);
 
   return (
     <Container sx={{ my: 5 }}>
@@ -208,8 +213,7 @@ const AdminChangeItemPage: React.FC = () => {
           <Select
             name="categories"
             multiple
-            // value={values.categories.concat(selectedCategories)}
-            value={values.categories}
+            value={selectedCategories}
             onChange={handleSelectChange}
           >
             {categories.map((cat) => (

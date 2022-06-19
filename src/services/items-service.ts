@@ -1,5 +1,6 @@
 import { CreateItem, Item } from 'types';
 import ApiService from './api-service-new';
+import { ChangeItem } from '../types/item';
 
 const fetchItems = async (): Promise<Item[]> => {
   const { data } = await ApiService.get<{ items: Item[] }>('api/items?populate=categories');
@@ -16,7 +17,7 @@ const deleteItem = async (id: string, token: string) => {
 };
 
 const createNewItem = async (item: CreateItem, token: string) => {
-  const { data } = await ApiService.post<{ item: Item }>(
+  const { data } = await ApiService.post<{ item: CreateItem }>(
     'api/items/',
     item,
     {
@@ -28,10 +29,19 @@ const createNewItem = async (item: CreateItem, token: string) => {
   return data.item;
 };
 
-const changeItem = async (item: Item, token: string) => {
-  const { data } = await ApiService.patch<{ item: Item }>(
+const changeItem = async (item: ChangeItem, token: string) => {
+  const { data } = await ApiService.patch<{ item: ChangeItem }>(
     `api/items/${item.id}`,
-    item,
+    {
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      price: item.price,
+      weight: item.weight,
+      img: item.img,
+      composition: item.composition,
+      categories: item.categories,
+    },
     {
       headers: {
         Authorization: token,
