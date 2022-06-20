@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
             : isMobile ? (<DrawerComp />) : (
               <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <NavbarScrollLink smooth offset={-90} to="home">DMK</NavbarScrollLink>
-                <NavbarScrollLink smooth offset={-90} to="assortment">Asortimentas</NavbarScrollLink>
+                <NavbarScrollLink smooth offset={-50} to="assortment">Asortimentas</NavbarScrollLink>
                 <NavbarScrollLink smooth offset={-90} to="about">Apie</NavbarScrollLink>
                 <NavbarScrollLink smooth offset={-90} to="reviews">Atsiliepimai</NavbarScrollLink>
                 <NavbarScrollLink smooth offset={-90} to="contacts">Kontaktai</NavbarScrollLink>
