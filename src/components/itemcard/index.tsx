@@ -3,7 +3,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box, IconButton, Paper, Typography,
+  Box, CardMedia, IconButton, Paper, Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -36,11 +36,13 @@ const ItemCard: React.FC<ItemCardProps> = ({
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Box>
           {img && (
-            <Box
+            <CardMedia
               component="img"
               src={img}
               alt={title}
-              sx={{ height: 200, width: 300 }}
+              sx={{
+                height: 200, width: 300, borderTopRightRadius: '4px', borderTopLeftRadius: '4px',
+              }}
             />
           )}
           <Typography gutterBottom variant="h6">
