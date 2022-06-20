@@ -32,7 +32,7 @@ const HomePage: React.FC = () => (
       <Box component="section" sx={(theme) => theme.mixins.section}>
         <Typography component="p" sx={{ color: 'bakery.dark' }}>{loremipsum}</Typography>
         <StyledButton size="large" variant="outlined">
-          <Link smooth to="assortment" offset={-90}>Išsirink savo kepinį</Link>
+          <Link smooth to="assortment" offset={-60}>Išsirink savo kepinį</Link>
         </StyledButton>
       </Box>
 
