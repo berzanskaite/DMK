@@ -13,7 +13,6 @@ import {
   createNavigationSetRedirectAction,
   navigationClearRedirectAction,
 } from '../navigation/navigation-action-creators';
-import pause from '../../../helpers/pause';
 
 const authLoadingAction: AuthLoadingAction = {
   type: 'AUTH_LOADING',

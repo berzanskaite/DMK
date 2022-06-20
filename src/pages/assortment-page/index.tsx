@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { CircularProgress, Container, Typography } from '@mui/material';
+import {
+  CircularProgress, Container, Pagination, Stack, Typography,
+} from '@mui/material';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
 import { createItemsDeleteItemAction, itemsFetchItemsAction } from 'store/action-creators';
 import ItemCard from 'components/itemcard';
@@ -32,7 +34,10 @@ const AssortmentPage: React.FC = () => {
               {...itemProps}
               deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
             />
-          ))}
+          )).slice(0, 6)}
+          <Stack spacing={2}>
+            <Pagination count={Math.round(items.length / 6)} />
+          </Stack>
         </ItemsContainer>
       );
     } else if (items.length === 0) {

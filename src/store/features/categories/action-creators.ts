@@ -1,6 +1,5 @@
 import { Dispatch } from 'redux';
 import { CreateCategory, Category } from 'types';
-import pause from 'helpers/pause';
 import CategoriesService from 'services/categories-service';
 import { AppAction, RootState } from '../../types';
 import {
@@ -8,7 +7,6 @@ import {
   CategoriesFetchCategoriesSuccessAction,
   CategoriesCreateNewCategoryAction,
   CategoriesUpdateCategoryAction,
-  CategoriesDeleteCategoryAction,
 } from './types';
 
 const categoriesFetchCategoriesLoadingAction: CategoriesFetchCategoriesLoadingAction = {
@@ -23,15 +21,9 @@ const createCategoriesFetchCategoriesSuccessAction = (categories: Category[]): C
 export const categoriesFetchCategoriesAction = async (dispatch: Dispatch<AppAction>): Promise<void> => {
   dispatch(categoriesFetchCategoriesLoadingAction);
   const categories = await CategoriesService.fetchCategories();
-  // await pause(2000);
   const categoriesFetchCategoriesSuccessAction = createCategoriesFetchCategoriesSuccessAction(categories);
   dispatch(categoriesFetchCategoriesSuccessAction);
 };
-
-const categoriesUpdateCategoryAction = (category: Category): CategoriesUpdateCategoryAction => ({
-  type: 'CATEGORIES_UPDATE_CATEGORY',
-  payload: { category },
-});
 
 export const createCategoriesUpdateCategoryAction = (category: Category) => async (
   dispatch: Dispatch<AppAction>,
@@ -56,11 +48,6 @@ export const createCategoriesDeleteCategoryAction = (id: string) => async (
   await CategoriesService.deleteCategory(id, token);
   categoriesFetchCategoriesAction(dispatch);
 };
-
-const categoriesCreateNewCategoryAction = (category: CreateCategory): CategoriesCreateNewCategoryAction => ({
-  type: 'CATEGORIES_CREATE_NEW_CATEGORY',
-  payload: { category },
-});
 
 export const createCategoriesCreateNewCategoryAction = (category: CreateCategory) => async (
   dispatch: Dispatch<AppAction>,

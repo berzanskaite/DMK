@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  Button, Container, Typography, TextField, Paper, Box,
+  Button, Container, Typography, TextField, Box,
 } from '@mui/material';
 
 import { useFormik, FormikConfig } from 'formik';

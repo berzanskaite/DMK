@@ -1,14 +1,10 @@
 import { Dispatch } from 'redux';
 import ItemsService from 'services/items-service';
 import { Item, CreateItem, ChangeItem } from 'types';
-import pause from 'helpers/pause';
 import { AppAction, RootState } from '../../types';
 import {
   ItemsFetchItemsLoadingAction,
   ItemsFetchItemsSuccessAction,
-  ItemsCreateNewItemAction,
-  ItemsUpdateItemAction,
-  ItemsDeleteItemAction,
 } from './types';
 
 const itemsFetchItemsLoadingAction: ItemsFetchItemsLoadingAction = {
@@ -23,7 +19,6 @@ const createItemsFecthItemsSuccessAction = (items: Item[]): ItemsFetchItemsSucce
 export const itemsFetchItemsAction = async (dispatch: Dispatch<AppAction>): Promise<void> => {
   dispatch(itemsFetchItemsLoadingAction);
   const items = await ItemsService.fetchItems();
-  await pause(2000);
   const itemsFetchItemsSuccessAction = createItemsFecthItemsSuccessAction(items);
   dispatch(itemsFetchItemsSuccessAction);
 };
