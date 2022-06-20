@@ -8,6 +8,7 @@ import AssortmentPage from 'pages/assortment-page';
 import ContactsPage from 'pages/contacts-page';
 import { Link } from 'react-scroll';
 import SectionTitle from 'components/sectiontitle';
+import Image from '../../../public/assets/keksiukai.png'; // Import using relative path
 
 const loremipsum = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quidem expedita, reiciendis officiis aut dolorum temporibus magnam facere voluptates veniam amet quos vero velit? Corporis culpa ad magnam excepturi earum. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus esse autem itaque laborum, magnam nulla atque reprehenderit error eligendi corrupti. Laboriosam, exercitationem. Quasi sapiente error omnis nihil alias, inventore modi.';
 
@@ -23,19 +24,33 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 }));
 
+const styles = {
+  container: {
+    backgroundImage: 'url(\'assets/keksiukai2.png\')',
+  },
+};
+
 const HomePage: React.FC = () => (
   <>
-    <Container id="home" sx={{ mb: 5, height: '100vh' }}>
-
+    <Container style={styles.container} id="home" sx={{ mb: 5, height: '90vh' }}>
       <SectionTitle title="Kepyklos puslapis" description="Kepykla įsikūrusi 2023 m. Vilniuje" />
-
-      <Box component="section" sx={(theme) => theme.mixins.section}>
-        <Typography component="p" sx={{ color: 'bakery.dark' }}>{loremipsum}</Typography>
-        <StyledButton size="large" variant="outlined">
-          <Link smooth to="assortment" offset={-60}>Išsirink savo kepinį</Link>
-        </StyledButton>
+      <Box sx={{ display: 'flex' }}>
+        <Box component="section" sx={(theme) => theme.mixins.section}>
+          <Typography
+            component="p"
+            sx={{
+              color: 'bakery.dark',
+              backgroundColor: { xs: 'rgba(255, 245, 245, 0.4)', lg: 'rgba(255, 245, 245, 0)' },
+              p: 2,
+            }}
+          >
+            {loremipsum}
+          </Typography>
+          <StyledButton size="large" variant="outlined" sx={{ mt: '50px' }}>
+            <Link smooth to="assortment" offset={-60}>Išsirink savo kepinį</Link>
+          </StyledButton>
+        </Box>
       </Box>
-
     </Container>
     <AssortmentPage />
     <AboutPage />
