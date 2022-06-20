@@ -15,6 +15,11 @@ const AssortmentPage: React.FC = () => {
   const itemsLoading = useRootSelector(selectItemsLoading);
   const dispatch = useRootDispatch();
   const [filter, setFilter] = useState<string>('');
+  const [page, setPage] = useState(1);
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   useEffect(() => {
     dispatch(itemsFetchItemsAction);
@@ -24,22 +29,47 @@ const AssortmentPage: React.FC = () => {
     <Container sx={{ my: 5, textAlign: 'center' }}><CircularProgress color="primary" size={60} /></Container>
   );
 
+  const contentPageOne = (
+    <>
+      <ItemsContainer>
+        {items.map((itemProps) => (
+          <ItemCard
+            key={itemProps.id}
+            {...itemProps}
+            deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+          />
+        )).slice(0, 6)}
+
+      </ItemsContainer>
+      <Stack spacing={2}>
+        <Pagination sx={{ mt: 3 }} count={Math.round(items.length / 6)} onChange={handleChange} />
+      </Stack>
+    </>
+  );
+
+  const contentPageTwo = (
+    <>
+      <ItemsContainer>
+        {items.map((itemProps) => (
+          <ItemCard
+            key={itemProps.id}
+            {...itemProps}
+            deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+          />
+        )).slice(6)}
+
+      </ItemsContainer>
+      <Stack spacing={2}>
+        <Pagination sx={{ mt: 3 }} count={Math.round(items.length / 6)} onChange={handleChange} />
+      </Stack>
+    </>
+  );
+
   if (!itemsLoading) {
-    if (items.length > 0 && filter === '') {
-      content = (
-        <ItemsContainer>
-          {items.map((itemProps) => (
-            <ItemCard
-              key={itemProps.id}
-              {...itemProps}
-              deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
-            />
-          )).slice(0, 6)}
-          <Stack spacing={2}>
-            <Pagination count={Math.round(items.length / 6)} />
-          </Stack>
-        </ItemsContainer>
-      );
+    if (items.length > 0 && filter === '' && page === 1) {
+      content = contentPageOne;
+    } else if (items.length > 0 && filter === '' && page === 2) {
+      content = contentPageTwo;
     } else if (items.length === 0) {
       content = <Typography>Prekių nėra</Typography>;
     } else if (filter !== '') {
@@ -53,6 +83,7 @@ const AssortmentPage: React.FC = () => {
             />
           ))}
         </ItemsContainer>
+
       );
     }
   }
@@ -61,6 +92,7 @@ const AssortmentPage: React.FC = () => {
       <SectionTitle title="Asortimentas" description="Nuo ruginės duonos iki šventinių pyragų" />
       <ChangeCategorySelect onChange={(value) => { setFilter(value); }} />
       {content}
+
     </Container>
   );
 };
