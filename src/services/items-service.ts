@@ -1,5 +1,5 @@
 import { CreateItem, Item } from 'types';
-import ApiService from './api-service-new';
+import ApiService from './api-service';
 import { ChangeItem } from '../types/item';
 
 const fetchItems = async (): Promise<Item[]> => {
@@ -32,16 +32,7 @@ const createNewItem = async (item: CreateItem, token: string) => {
 const changeItem = async (item: ChangeItem, token: string) => {
   const { data } = await ApiService.patch<{ item: ChangeItem }>(
     `api/items/${item.id}`,
-    {
-      id: item.id,
-      title: item.title,
-      description: item.description,
-      price: item.price,
-      weight: item.weight,
-      img: item.img,
-      composition: item.composition,
-      categories: item.categories,
-    },
+    item,
     {
       headers: {
         Authorization: token,

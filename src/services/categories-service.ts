@@ -1,5 +1,5 @@
 import { CreateCategory, Category } from 'types';
-import ApiService from './api-service-new';
+import ApiService from './api-service';
 
 const fetchCategories = async (): Promise<Category[]> => {
   const { data } = await ApiService.get<{ categories: Category[] }>('/api/categories');

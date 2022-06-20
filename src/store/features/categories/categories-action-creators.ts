@@ -5,9 +5,7 @@ import { AppAction, RootState } from '../../types';
 import {
   CategoriesFetchCategoriesLoadingAction,
   CategoriesFetchCategoriesSuccessAction,
-  CategoriesCreateNewCategoryAction,
-  CategoriesUpdateCategoryAction,
-} from './types';
+} from './categories-types';
 
 const categoriesFetchCategoriesLoadingAction: CategoriesFetchCategoriesLoadingAction = {
   type: 'CATEGORIES_FETCH_CATEGORIES_LOADING',

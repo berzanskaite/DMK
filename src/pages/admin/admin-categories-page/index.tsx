@@ -15,7 +15,7 @@ import {
   createCategoriesCreateNewCategoryAction,
   createCategoriesDeleteCategoryAction,
   createCategoriesUpdateCategoryAction,
-} from '../../../store/features/categories/action-creators';
+} from '../../../store/features/categories/categories-action-creators';
 import CategoryListItem from './category-list-item';
 
 type CreateCategoryFormikConfig = FormikConfig<CreateCategory>;

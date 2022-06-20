@@ -77,7 +77,7 @@ const ItemCard: React.FC<ItemCardProps> = ({
           </Box>
         </Box>
       </Box>
-      <Accordion elevation={0}>
+      <Accordion elevation={0} sx={{ zIndex: '1000' }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"

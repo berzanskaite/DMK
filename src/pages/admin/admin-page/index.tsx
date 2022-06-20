@@ -12,7 +12,7 @@ import { useRootDispatch } from 'store/hooks';
 import {
   itemsFetchItemsAction,
   createItemsDeleteItemAction,
-} from 'store/features/items/action-creators';
+} from 'store/features/items/items-action-creators';
 import ChangeCategorySelect from './change-category-select';
 
 const AdminPage: React.FC = () => {

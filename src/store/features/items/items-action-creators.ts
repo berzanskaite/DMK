@@ -5,7 +5,7 @@ import { AppAction, RootState } from '../../types';
 import {
   ItemsFetchItemsLoadingAction,
   ItemsFetchItemsSuccessAction,
-} from './types';
+} from './items-types';
 
 const itemsFetchItemsLoadingAction: ItemsFetchItemsLoadingAction = {
   type: 'ITEMS_FETCH_ITEMS_LOADING',

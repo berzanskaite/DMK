@@ -31,7 +31,7 @@ const AboutPage: React.FC = () => (
         />
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Šviežumas</Typography>
-          <Typography variant="subtitle2" sx={{ color: 'gray', width: '150px' }}>Švieži sezoniniai produktai ir dar kvepiantys kepiniai</Typography>
+          <Typography variant="subtitle2" sx={{ color: 'gray', width: '150px' }}>Švieži sezoniniai produktai ir dar šilti kepiniai</Typography>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
