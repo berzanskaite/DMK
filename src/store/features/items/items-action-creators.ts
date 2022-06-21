@@ -1,10 +1,11 @@
 import { Dispatch } from 'redux';
 import ItemsService from 'services/items-service';
-import { Item, CreateItem, ChangeItem } from 'types';
+import { Item, ItemCreate, ItemChange } from 'types';
 import { AppAction, RootState } from '../../types';
 import {
   ItemsFetchItemsLoadingAction,
   ItemsFetchItemsSuccessAction,
+  ItemsFetchItemSuccessAction,
 } from './items-types';
 
 const itemsFetchItemsLoadingAction: ItemsFetchItemsLoadingAction = {
@@ -16,6 +17,11 @@ const createItemsFecthItemsSuccessAction = (items: Item[]): ItemsFetchItemsSucce
   payload: { items },
 });
 
+const createItemsFetchItemSuccessAction = (item: Item): ItemsFetchItemSuccessAction => ({
+  type: 'ITEMS_FETCH_ITEM_SUCCESS',
+  payload: { item },
+});
+
 export const itemsFetchItemsActionThunk = async (dispatch: Dispatch<AppAction>): Promise<void> => {
   dispatch(itemsFetchItemsLoadingAction);
   const items = await ItemsService.fetchItems();
@@ -23,7 +29,16 @@ export const itemsFetchItemsActionThunk = async (dispatch: Dispatch<AppAction>):
   dispatch(itemsFetchItemsSuccessAction);
 };
 
-export const createItemsNewItemActionThunk = (item: CreateItem) => async (
+export const createItemsFetchOneActionThunk = (id: string) => async (
+  dispatch: Dispatch<AppAction>,
+): Promise<void> => {
+  dispatch(itemsFetchItemsLoadingAction);
+  const item = await ItemsService.fetchOneItem(id);
+  const itemsFetchItemSuccessAction = createItemsFetchItemSuccessAction(item);
+  dispatch(itemsFetchItemSuccessAction);
+};
+
+export const createItemsNewItemActionThunk = (item: ItemCreate) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
 ): Promise<void> => {
@@ -35,7 +50,7 @@ export const createItemsNewItemActionThunk = (item: CreateItem) => async (
   itemsFetchItemsActionThunk(dispatch);
 };
 
-export const createItemsUpdateItemActionThunk = (item: ChangeItem) => async (
+export const createItemsUpdateItemActionThunk = (item: ItemChange) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
 ) => {

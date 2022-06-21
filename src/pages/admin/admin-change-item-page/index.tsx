@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFormik, FormikConfig } from 'formik';
 import * as Yup from 'yup';
 import {
-  Box, Container, TextField, Paper, Button, CircularProgress, Select, MenuItem, SelectChangeEvent,
+  Box, Container, TextField, Paper, Button, CircularProgress, Select, MenuItem,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -11,14 +11,13 @@ import { useRootDispatch, useRootSelector } from 'store/hooks';
 import { selectCategories, selectItemById, selectItemsLoading } from 'store/selectors';
 import {
   categoriesFetchCategoriesActionThunk,
+  createItemsFetchOneActionThunk,
   createItemsUpdateItemActionThunk,
-  itemsFetchItemsActionThunk,
 } from 'store/action-creators';
-import { Item } from 'types';
+import { ItemChange, Item } from 'types';
 import pause from 'helpers/pause';
-import { selectItemCategoriesByItemId } from '../../../store/selectors';
 
-type ChangeItemFormikConfig = FormikConfig<Item>;
+type ChangeItemFormikConfig = FormikConfig<ItemChange>;
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -37,6 +36,11 @@ const validationSchema = Yup.object({
     .min(30, 'Mažiausiai 30 simbolių'),
 });
 
+const unpopulateItem = (item: Item): ItemChange => ({
+  ...item,
+  categories: item.categories.map((x) => x.id),
+});
+
 const AdminChangeItemPage: React.FC = () => {
   const { id } = useParams();
   const dispatch = useRootDispatch();
@@ -44,11 +48,9 @@ const AdminChangeItemPage: React.FC = () => {
 
   const loading = useRootSelector(selectItemsLoading);
   const item = useRootSelector(selectItemById(id));
-  const itemCategories = useRootSelector(selectItemCategoriesByItemId(id));
   const categories = useRootSelector(selectCategories);
-  const [selectedCategories, setSelectedCategories] = useState<string[] | undefined>(itemCategories);
 
-  const initialValues = item || {
+  const initialValues: ItemChange = (item && unpopulateItem(item)) || {
     composition: '',
     description: '',
     id: '',
@@ -60,7 +62,7 @@ const AdminChangeItemPage: React.FC = () => {
   };
 
   const handleSubmitForm: ChangeItemFormikConfig['onSubmit'] = (values) => {
-    const changeAction = createItemsUpdateItemActionThunk({ ...values, categories: selectedCategories });
+    const changeAction = createItemsUpdateItemActionThunk({ ...values });
     dispatch(changeAction);
     pause(2000);
     navigate('/admin');
@@ -73,32 +75,22 @@ const AdminChangeItemPage: React.FC = () => {
     handleChange,
     handleBlur,
     handleSubmit,
-  } = useFormik<Item>({
+  } = useFormik<ItemChange>({
     initialValues,
     onSubmit: handleSubmitForm,
     validationSchema,
+    enableReinitialize: true,
   });
-
-  const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedCategories(typeof value === 'string' ? value.split(',') : value);
-  };
-
-  useEffect(() => {
-    dispatch(itemsFetchItemsActionThunk);
-  }, []);
 
   useEffect(() => {
     dispatch(categoriesFetchCategoriesActionThunk);
   }, []);
 
-  // useEffect(() => {
-  //   if (id !== undefined && item === undefined) {
-  //     dispatch(createItemsFetchOneActionThunk(id));
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (id !== undefined && item === undefined) {
+      dispatch(createItemsFetchOneActionThunk(id));
+    }
+  }, []);
 
   return (
     <Container sx={{ my: 5 }}>
@@ -213,8 +205,8 @@ const AdminChangeItemPage: React.FC = () => {
           <Select
             name="categories"
             multiple
-            value={selectedCategories}
-            onChange={handleSelectChange}
+            value={values.categories}
+            onChange={handleChange}
           >
             {categories.map((cat) => (
               <MenuItem key={cat.id} value={cat.id}>{cat.title}</MenuItem>

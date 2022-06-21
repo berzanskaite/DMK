@@ -14,10 +14,10 @@ export type Item = {
 
 };
 
-export type CreateItem = Omit<Item, 'id' | 'categories'> & {
+export type ItemCreate = Omit<Item, 'id' | 'categories'> & {
   categories: string[];
 };
 
-export type ChangeItem = Omit<Item, 'categories'> & {
+export type ItemChange = Omit<Item, 'categories'> & {
   categories?: string[];
 };

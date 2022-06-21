@@ -24,6 +24,14 @@ const itemsReducer: Reducer<ItemsState, ItemsAction> = (state = initialState, ac
       };
     }
 
+    case 'ITEMS_FETCH_ITEM_SUCCESS': {
+      return {
+        ...state,
+        loading: false,
+        items: [...state.items, action.payload.item],
+      };
+    }
+
     default:
       return state;
   }

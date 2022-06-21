@@ -16,4 +16,11 @@ export type ItemsFetchItemsSuccessAction = {
   }
 };
 
-export type ItemsAction = ItemsFetchItemsLoadingAction | ItemsFetchItemsSuccessAction;
+export type ItemsFetchItemSuccessAction = {
+  type: 'ITEMS_FETCH_ITEM_SUCCESS',
+  payload: {
+    item: Item,
+  }
+};
+
+export type ItemsAction = ItemsFetchItemsLoadingAction | ItemsFetchItemsSuccessAction | ItemsFetchItemSuccessAction;

@@ -9,11 +9,11 @@ import { useNavigate } from 'react-router-dom';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
 import { categoriesFetchCategoriesActionThunk, createItemsNewItemActionThunk } from 'store/action-creators';
 import SectionTitle from 'components/sectiontitle';
-import { CreateItem } from 'types';
+import { ItemCreate } from 'types';
 import { selectCategories } from 'store/selectors';
 import pause from '../../../helpers/pause';
 
-type CreateNewItemFormikConfig = FormikConfig<CreateItem>;
+type CreateNewItemFormikConfig = FormikConfig<ItemCreate>;
 
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -73,7 +73,7 @@ const AdminCreateNewItemPage: React.FC = () => {
     handleChange,
     handleBlur,
     handleSubmit,
-  } = useFormik<CreateItem>({
+  } = useFormik<ItemCreate>({
     initialValues,
     onSubmit: handleSubmitForm,
     validationSchema,

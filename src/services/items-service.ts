@@ -1,10 +1,15 @@
-import { CreateItem, Item } from 'types';
+import { ItemCreate, Item } from 'types';
 import ApiService from './api-service';
-import { ChangeItem } from '../types/item';
+import { ItemChange } from '../types/item';
 
 const fetchItems = async (): Promise<Item[]> => {
   const { data } = await ApiService.get<{ items: Item[] }>('api/items?populate=categories');
   return data.items;
+};
+
+const fetchOneItem = async (id: string) => {
+  const { data } = await ApiService.get<{ item: Item }>(`/api/items/${id}?populate=categories`);
+  return data.item;
 };
 
 const deleteItem = async (id: string, token: string) => {
@@ -16,8 +21,8 @@ const deleteItem = async (id: string, token: string) => {
   return data.item;
 };
 
-const createNewItem = async (item: CreateItem, token: string) => {
-  const { data } = await ApiService.post<{ item: CreateItem }>(
+const createNewItem = async (item: ItemCreate, token: string) => {
+  const { data } = await ApiService.post<{ item: ItemCreate }>(
     'api/items/',
     item,
     {
@@ -29,8 +34,8 @@ const createNewItem = async (item: CreateItem, token: string) => {
   return data.item;
 };
 
-const changeItem = async (item: ChangeItem, token: string) => {
-  const { data } = await ApiService.patch<{ item: ChangeItem }>(
+const changeItem = async (item: ItemChange, token: string) => {
+  const { data } = await ApiService.patch<{ item: ItemChange }>(
     `api/items/${item.id}`,
     item,
     {
@@ -47,6 +52,7 @@ const ItemsService = {
   deleteItem,
   createNewItem,
   changeItem,
+  fetchOneItem,
 };
 
 export default ItemsService;
