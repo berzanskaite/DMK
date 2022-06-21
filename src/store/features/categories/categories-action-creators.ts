@@ -16,14 +16,14 @@ const createCategoriesFetchCategoriesSuccessAction = (categories: Category[]): C
   payload: { categories },
 });
 
-export const categoriesFetchCategoriesAction = async (dispatch: Dispatch<AppAction>): Promise<void> => {
+export const categoriesFetchCategoriesActionThunk = async (dispatch: Dispatch<AppAction>): Promise<void> => {
   dispatch(categoriesFetchCategoriesLoadingAction);
   const categories = await CategoriesService.fetchCategories();
   const categoriesFetchCategoriesSuccessAction = createCategoriesFetchCategoriesSuccessAction(categories);
   dispatch(categoriesFetchCategoriesSuccessAction);
 };
 
-export const createCategoriesUpdateCategoryAction = (category: Category) => async (
+export const createCategoriesUpdateCategoryActionThunk = (category: Category) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
 ) => {
@@ -32,10 +32,10 @@ export const createCategoriesUpdateCategoryAction = (category: Category) => asyn
     throw new Error('Prašome prisijungti');
   }
   await CategoriesService.changeCategory(category, token);
-  categoriesFetchCategoriesAction(dispatch);
+  categoriesFetchCategoriesActionThunk(dispatch);
 };
 
-export const createCategoriesDeleteCategoryAction = (id: string) => async (
+export const createCategoriesDeleteCategoryActionThunk = (id: string) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
 ) => {
@@ -44,10 +44,10 @@ export const createCategoriesDeleteCategoryAction = (id: string) => async (
     throw new Error('Prašome prisijungti');
   }
   await CategoriesService.deleteCategory(id, token);
-  categoriesFetchCategoriesAction(dispatch);
+  categoriesFetchCategoriesActionThunk(dispatch);
 };
 
-export const createCategoriesCreateNewCategoryAction = (category: CreateCategory) => async (
+export const createCategoriesCreateNewCategoryActionThunk = (category: CreateCategory) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
 ): Promise<void> => {
@@ -56,5 +56,5 @@ export const createCategoriesCreateNewCategoryAction = (category: CreateCategory
     throw new Error('Prašome prisijungti');
   }
   await CategoriesService.createNewCategory(category, token);
-  categoriesFetchCategoriesAction(dispatch);
+  categoriesFetchCategoriesActionThunk(dispatch);
 };

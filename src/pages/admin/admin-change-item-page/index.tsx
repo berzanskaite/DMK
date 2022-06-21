@@ -10,9 +10,9 @@ import SectionTitle from 'components/sectiontitle';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
 import { selectCategories, selectItemById, selectItemsLoading } from 'store/selectors';
 import {
-  categoriesFetchCategoriesAction,
+  categoriesFetchCategoriesActionThunk,
   createItemsUpdateItemActionThunk,
-  itemsFetchItemsAction,
+  itemsFetchItemsActionThunk,
 } from 'store/action-creators';
 import { Item } from 'types';
 import pause from 'helpers/pause';
@@ -87,11 +87,11 @@ const AdminChangeItemPage: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(itemsFetchItemsAction);
+    dispatch(itemsFetchItemsActionThunk);
   }, []);
 
   useEffect(() => {
-    dispatch(categoriesFetchCategoriesAction);
+    dispatch(categoriesFetchCategoriesActionThunk);
   }, []);
 
   // useEffect(() => {

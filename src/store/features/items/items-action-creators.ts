@@ -16,14 +16,14 @@ const createItemsFecthItemsSuccessAction = (items: Item[]): ItemsFetchItemsSucce
   payload: { items },
 });
 
-export const itemsFetchItemsAction = async (dispatch: Dispatch<AppAction>): Promise<void> => {
+export const itemsFetchItemsActionThunk = async (dispatch: Dispatch<AppAction>): Promise<void> => {
   dispatch(itemsFetchItemsLoadingAction);
   const items = await ItemsService.fetchItems();
   const itemsFetchItemsSuccessAction = createItemsFecthItemsSuccessAction(items);
   dispatch(itemsFetchItemsSuccessAction);
 };
 
-export const createItemsNewItemAction = (item: CreateItem) => async (
+export const createItemsNewItemActionThunk = (item: CreateItem) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
 ): Promise<void> => {
@@ -32,7 +32,7 @@ export const createItemsNewItemAction = (item: CreateItem) => async (
     throw new Error('Prašome prisijungti');
   }
   await ItemsService.createNewItem(item, token);
-  itemsFetchItemsAction(dispatch);
+  itemsFetchItemsActionThunk(dispatch);
 };
 
 export const createItemsUpdateItemActionThunk = (item: ChangeItem) => async (
@@ -44,10 +44,10 @@ export const createItemsUpdateItemActionThunk = (item: ChangeItem) => async (
     throw new Error('Prašome prisijungti');
   }
   await ItemsService.changeItem(item, token);
-  itemsFetchItemsAction(dispatch);
+  itemsFetchItemsActionThunk(dispatch);
 };
 
-export const createItemsDeleteItemAction = (id: string) => async (
+export const createItemsDeleteItemActionThunk = (id: string) => async (
   dispatch: Dispatch<AppAction>,
   getState: () => RootState,
 ) => {
@@ -56,5 +56,5 @@ export const createItemsDeleteItemAction = (id: string) => async (
     throw new Error('Prašome prisijungti');
   }
   await ItemsService.deleteItem(id, token);
-  itemsFetchItemsAction(dispatch);
+  itemsFetchItemsActionThunk(dispatch);
 };

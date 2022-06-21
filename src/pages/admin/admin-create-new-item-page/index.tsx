@@ -7,7 +7,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
-import { categoriesFetchCategoriesAction, createItemsNewItemAction } from 'store/action-creators';
+import { categoriesFetchCategoriesActionThunk, createItemsNewItemActionThunk } from 'store/action-creators';
 import SectionTitle from 'components/sectiontitle';
 import { CreateItem } from 'types';
 import { selectCategories } from 'store/selectors';
@@ -49,7 +49,7 @@ const AdminCreateNewItemPage: React.FC = () => {
   };
 
   const handleSubmitForm: CreateNewItemFormikConfig['onSubmit'] = (item) => {
-    const createAction = createItemsNewItemAction({ ...item, categories: selectedCategories });
+    const createAction = createItemsNewItemActionThunk({ ...item, categories: selectedCategories });
     dispatch(createAction);
     pause(2000);
     navigate('/admin');
@@ -63,7 +63,7 @@ const AdminCreateNewItemPage: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(categoriesFetchCategoriesAction);
+    dispatch(categoriesFetchCategoriesActionThunk);
   }, []);
 
   const {

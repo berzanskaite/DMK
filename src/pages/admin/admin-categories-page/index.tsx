@@ -11,10 +11,10 @@ import { CreateCategory } from 'types';
 import * as Yup from 'yup';
 import { useRootDispatch } from '../../../store/hooks';
 import {
-  categoriesFetchCategoriesAction,
-  createCategoriesCreateNewCategoryAction,
-  createCategoriesDeleteCategoryAction,
-  createCategoriesUpdateCategoryAction,
+  categoriesFetchCategoriesActionThunk,
+  createCategoriesCreateNewCategoryActionThunk,
+  createCategoriesDeleteCategoryActionThunk,
+  createCategoriesUpdateCategoryActionThunk,
 } from '../../../store/features/categories/categories-action-creators';
 import CategoryListItem from './category-list-item';
 
@@ -36,7 +36,7 @@ const CategoriesPage: React.FC = () => {
   };
 
   const handleSubmitForm: CreateCategoryFormikConfig['onSubmit'] = (category) => {
-    const createAction = createCategoriesCreateNewCategoryAction(category);
+    const createAction = createCategoriesCreateNewCategoryActionThunk(category);
     dispatch(createAction);
   };
 
@@ -54,7 +54,7 @@ const CategoriesPage: React.FC = () => {
   });
 
   useEffect(() => {
-    dispatch(categoriesFetchCategoriesAction);
+    dispatch(categoriesFetchCategoriesActionThunk);
   }, []);
 
   let content = (
@@ -69,9 +69,9 @@ const CategoriesPage: React.FC = () => {
             <CategoryListItem
               key={categoryProps.id}
               {...categoryProps}
-              deleteCategory={() => dispatch(createCategoriesDeleteCategoryAction(categoryProps.id))}
+              deleteCategory={() => dispatch(createCategoriesDeleteCategoryActionThunk(categoryProps.id))}
               updateCategory={(id, title) => {
-                dispatch(createCategoriesUpdateCategoryAction({ id, title }));
+                dispatch(createCategoriesUpdateCategoryActionThunk({ id, title }));
               }}
             />
           ))}

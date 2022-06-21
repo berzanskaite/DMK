@@ -10,8 +10,8 @@ import { useRootSelector } from 'store';
 import { selectAdmin, selectItems, selectItemsLoading } from 'store/selectors';
 import { useRootDispatch } from 'store/hooks';
 import {
-  itemsFetchItemsAction,
-  createItemsDeleteItemAction,
+  itemsFetchItemsActionThunk,
+  createItemsDeleteItemActionThunk,
 } from 'store/features/items/items-action-creators';
 import ChangeCategorySelect from './change-category-select';
 
@@ -23,7 +23,7 @@ const AdminPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(itemsFetchItemsAction);
+    dispatch(itemsFetchItemsActionThunk);
   }, []);
 
   const [filter, setFilter] = useState<string>('');
@@ -40,7 +40,7 @@ const AdminPage: React.FC = () => {
             <ItemCard
               key={itemProps.id}
               {...itemProps}
-              deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+              deleteItem={() => dispatch(createItemsDeleteItemActionThunk(itemProps.id))}
             />
           ))}
         </ItemsContainer>
@@ -54,7 +54,7 @@ const AdminPage: React.FC = () => {
             <ItemCard
               key={itemProps.id}
               {...itemProps}
-              deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+              deleteItem={() => dispatch(createItemsDeleteItemActionThunk(itemProps.id))}
             />
           ))}
         </ItemsContainer>

@@ -3,7 +3,7 @@ import {
   CircularProgress, Container, Pagination, Stack, Typography,
 } from '@mui/material';
 import { useRootDispatch, useRootSelector } from 'store/hooks';
-import { createItemsDeleteItemAction, itemsFetchItemsAction } from 'store/action-creators';
+import { createItemsDeleteItemActionThunk, itemsFetchItemsActionThunk } from 'store/action-creators';
 import ItemCard from 'components/itemcard';
 import SectionTitle from 'components/sectiontitle';
 import ItemsContainer from 'components/itemscontainer';
@@ -22,7 +22,7 @@ const AssortmentPage: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(itemsFetchItemsAction);
+    dispatch(itemsFetchItemsActionThunk);
   }, []);
 
   let content = (
@@ -36,7 +36,7 @@ const AssortmentPage: React.FC = () => {
           <ItemCard
             key={itemProps.id}
             {...itemProps}
-            deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+            deleteItem={() => dispatch(createItemsDeleteItemActionThunk(itemProps.id))}
           />
         )).slice(0, 6)}
 
@@ -54,7 +54,7 @@ const AssortmentPage: React.FC = () => {
           <ItemCard
             key={itemProps.id}
             {...itemProps}
-            deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+            deleteItem={() => dispatch(createItemsDeleteItemActionThunk(itemProps.id))}
           />
         )).slice(6)}
 
@@ -79,7 +79,7 @@ const AssortmentPage: React.FC = () => {
             <ItemCard
               key={itemProps.id}
               {...itemProps}
-              deleteItem={() => dispatch(createItemsDeleteItemAction(itemProps.id))}
+              deleteItem={() => dispatch(createItemsDeleteItemActionThunk(itemProps.id))}
             />
           ))}
         </ItemsContainer>

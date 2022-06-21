@@ -3,7 +3,7 @@ import {
   FormControl, InputLabel, MenuItem, Select, SelectChangeEvent,
 } from '@mui/material';
 import { selectCategories } from 'store/selectors';
-import { categoriesFetchCategoriesAction } from 'store/action-creators';
+import { categoriesFetchCategoriesActionThunk } from 'store/action-creators';
 import { useRootSelector, useRootDispatch } from '../../../store/hooks';
 
 const ChangeCategorySelect = (props: { onChange: (value: string) => void }) => {
@@ -13,7 +13,7 @@ const ChangeCategorySelect = (props: { onChange: (value: string) => void }) => {
   const dispatch = useRootDispatch();
 
   useEffect(() => {
-    dispatch(categoriesFetchCategoriesAction);
+    dispatch(categoriesFetchCategoriesActionThunk);
   }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
