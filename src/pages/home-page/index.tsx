@@ -26,6 +26,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 const styles = {
   container: {
     backgroundImage: 'url(\'assets/keksiukai2.png\')',
+    backgroundRepeat: 'no-repeat',
   },
 };
 
