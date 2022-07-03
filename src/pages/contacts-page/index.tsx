@@ -73,7 +73,8 @@ const ContactsPage: React.FC = () => {
           alignItems: 'center',
           gap: 1,
           p: 3,
-          width: 500,
+          width: { xs: 300, sm: 500 },
+
         }}
         onSubmit={handleSubmit}
       >
@@ -83,11 +84,12 @@ const ContactsPage: React.FC = () => {
           width: 1 / 1,
           my: 2,
           justifyContent: 'center',
+          flexDirection: { xs: 'column', sm: 'row' },
         }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <TextField
-              sx={{ mb: 1, mr: 2 }}
+              sx={{ mb: 1, mr: { xs: 0, sm: 2 } }}
               id="name"
               name="name"
               label="Jūsų vardas"
@@ -124,7 +126,7 @@ const ContactsPage: React.FC = () => {
         </Box>
         <Box>
           <TextField
-            sx={{ width: '435px', mt: 1 }}
+            sx={{ width: { xs: '250px', sm: '435px' }, mt: 1 }}
             id="message"
             name="message"
             label="Žinutė"

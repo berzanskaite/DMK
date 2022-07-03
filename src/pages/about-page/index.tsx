@@ -7,13 +7,15 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SectionTitle from '../../components/sectiontitle';
 
 const AboutPage: React.FC = () => (
-  <Container id="about" sx={{ mb: 5, height: '80vh' }}>
+  <Container id="about" sx={{ height: '100%' }}>
     <SectionTitle title="Apie" description="Kaip mes kepame ir kuo vadovaujamės" />
     <Container sx={{
       display: 'flex',
+      flexDirection: { sm: 'column', md: 'row' },
       justifyContent: 'space-around',
+      alignContent: 'center',
       alignItems: 'center',
-      height: '40vh',
+      height: '60vh',
       flexWrap: 'wrap',
     }}
     >

@@ -36,6 +36,7 @@ const ReviewsPage: React.FC = () => {
           navigation
           modules={[Navigation]}
           className="mySwiper"
+
         >
           {reviews.map((review) => (
             <SwiperSlide key={review.name}>
@@ -52,7 +53,11 @@ const ReviewsPage: React.FC = () => {
                   component="img"
                   src={review.photo !== '' ? review.photo : noPhoto}
                   sx={{
-                    width: '150px', height: '150px', borderRadius: '100%', mr: '30px',
+                    width: '150px',
+                    height: '150px',
+                    borderRadius: '100%',
+                    mr: '30px',
+                    display: { xs: 'none', sm: 'block' },
                   }}
                 />
                 <Box>

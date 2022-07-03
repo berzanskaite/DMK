@@ -32,7 +32,7 @@ const styles = {
 
 const HomePage: React.FC = () => (
   <>
-    <Container style={styles.container} id="home" sx={{ mb: 5, height: '90vh' }}>
+    <Container style={styles.container} id="home" sx={{ mb: 5, height: '100%' }}>
       <SectionTitle title="Kepyklos puslapis" description="Kepykla įsikūrusi 2023 m. Vilniuje" />
       <Box sx={{ display: 'flex' }}>
         <Box component="section" sx={(theme) => theme.mixins.section}>
